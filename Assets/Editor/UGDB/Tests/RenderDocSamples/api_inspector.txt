@@ -1,0 +1,6 @@
+DrawIndexed()
+  IndexCount: 34560
+  InstanceCount: 1
+  StartIndexLocation: 0
+  BaseVertexLocation: 0
+  StartInstanceLocation: 0

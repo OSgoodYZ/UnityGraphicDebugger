@@ -147,7 +147,7 @@
 - **설명**: 계획서 2-1절의 패턴 A~L을 `static readonly Regex` 필드로 정의. 패턴 A: Resource 패널 (`Texture2D WxH N mips - FORMAT`), B: Pipeline State 탭 구분, C: 해상도만, D: DrawIndexed, E: API Inspector IndexCount, F: Draw(), G: CB 구조체 뷰, H: CB 오프셋 뷰, I: CB raw hex, J: 셰이더 키워드, K: 셰이더 이름. 각 Regex에 `RegexOptions.Compiled` 적용. 포맷 이름 매핑 테이블: `Dictionary<string, string> FormatAliases` (BC7_UNORM ↔ ASTC_6x6 등 DX11/Vulkan 간 대응).
 - **의존**: P1-14 (Phase 1 완료 후)
 - **검증**: 각 패턴에 대해 계획서의 예시 텍스트가 매칭됨, `FormatAliases`에 주요 포맷 쌍이 존재
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -156,7 +156,7 @@
 - **설명**: 계획서 2-2절 기반. `ClipboardParser` 클래스 + `ParseResult` 클래스 + `QueryType` enum 정의. `public ParseResult Parse(string clipboardText)` 메인 메서드. 줄 단위 분리 후 `TryParseTexture(line, result)` 구현: 패턴 A → width, height, mipCount, format 추출하여 `TextureSignature` 생성 → `result.textures`에 추가. 패턴 B → slot index + 텍스처 정보 추출. 패턴 C → 해상도만 추출. 여러 줄이면 각 줄 파싱하여 복수 텍스처 수집.
 - **의존**: P2-01
 - **검증**: `"Texture2D 2048x2048 12 mips - BC7_UNORM"` 파싱 시 width=2048, height=2048, format="BC7_UNORM" 추출, QueryType이 Texture
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -165,7 +165,7 @@
 - **설명**: `TryParseDrawCall(line, result)` 구현. 패턴 D: `DrawIndexed(34560, 1, 0, 0, 0)` → indexCount=34560. 패턴 E: `IndexCount: 34560` → indexCount=34560. 패턴 F: `Draw(1200)` → vertexCount=1200. 추출 값을 `result.indexCount` 또는 `result.vertexCount`에 저장.
 - **의존**: P2-02
 - **검증**: `"DrawIndexed(34560, 1, 0, 0, 0)"` 파싱 시 indexCount=34560, QueryType이 Geometry
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -174,7 +174,7 @@
 - **설명**: `TryParseCBStruct(line, result)`: 패턴 G — `float4 1.000 0.950 0.900 1.000` → Vector4, `float 0.730` → float. `TryParseCBOffset(line, result)`: 패턴 H — `[0]: 1, 0.95, 0.9, 1` → offset=0, values. `TryParseCBHex(line, result)`: 패턴 I — hex → float 변환 (`BitConverter.Int32BitsToSingle`). 추출 값을 `result.cbFloats`, `result.cbVectors`, `result.cbOffsetValues`에 저장.
 - **의존**: P2-03
 - **검증**: `"float 0.730"` 파싱 시 cbFloats에 0.73 추가, `"[16]: 0.73"` 파싱 시 cbOffsetValues[16]=0.73, hex `"3F800000"` → 1.0f
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -183,7 +183,7 @@
 - **설명**: `TryParseKeywords(line, result)`: 패턴 J — `_NORMALMAP`, `_EMISSION` 등 대문자 키워드 추출 → `result.shaderKeywords`. `TryParseShaderName(line, result)`: 패턴 K — `Custom/CharacterPBR` 같은 슬래시 포함 경로 → `result.shaderName`. `DetermineQueryType(ParseResult)` 구현: 추출된 키 조합에 따라 Texture/Geometry/ConstantBuffer/Shader/Composite 자동 결정 (2개 이상 카테고리 → Composite).
 - **의존**: P2-04
 - **검증**: 텍스처+드로우콜 정보가 동시에 포함된 텍스트에서 QueryType이 Composite, 키워드 `_NORMALMAP`이 정상 추출
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -192,7 +192,7 @@
 - **설명**: 계획서 2-3절의 모든 패턴(A~L)에 대한 유닛 테스트. 각 패턴별 최소 2개 입력 (정상 + 변형). 복합 입력 (여러 패턴 혼합) 테스트. QueryType 자동 결정 테스트. `Tests/RenderDocSamples/` 폴더에 실제 복사 텍스트 샘플 파일 포함 (계획서 예시 기반). NUnit `[Test]` 어트리뷰트 사용.
 - **의존**: P2-05
 - **검증**: Unity Test Runner에서 모든 테스트 통과
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -201,7 +201,7 @@
 - **설명**: 계획서 2-4절 레이아웃 구현. `UGDBWindow : EditorWindow` — `[MenuItem("Window/UGDB Lookup")]`으로 메뉴 등록. 상단: 타이틀 + Snap 버튼 (Phase 3에서 연결, 지금은 placeholder) + 스냅샷 정보 라벨. 중앙: `PasteArea` — `EditorGUILayout.TextArea`로 붙여넣기 영역, Ctrl+V 감지 시 자동 파싱 트리거, "감지됨: ..." 라벨 표시, [검색] 버튼. 하단: 결과 영역 (P2-08에서 구현), 상태바 (스냅샷 통계). 히스토리 기능: 이전 검색 결과 목록 (List로 관리, 뒤로가기 버튼).
 - **의존**: P1-14 (LookupEngine 참조)
 - **검증**: `Window > UGDB Lookup` 메뉴로 윈도우 열림, 텍스트 붙여넣기 시 "감지됨" 라벨 갱신, 검색 버튼 클릭 가능
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -210,7 +210,7 @@
 - **설명**: 계획서 2-4절 결과 카드 UI. `ResultsPanel` 클래스 — `void Draw(List<MatchResult> results)`. 각 결과 카드: GameObject 이름 + hierarchy 경로, Mesh 정보 (vtx/idx), Material + Shader + Keywords, 텍스처 슬롯 목록 ([0] _MainTex → T_Hero_Body_D.png), CB Layout (추정 오프셋 + 프로퍼티 이름 + 값), 신뢰도 표시 (score + HIGH/MEDIUM/LOW). 액션 버튼: [Ping Asset] — `EditorGUIUtility.PingObject`, [Select GO] — `Selection.activeGameObject`, [Copy Path] — `EditorGUIUtility.systemCopyBuffer`.
 - **의존**: P2-07
 - **검증**: MatchResult 데이터가 있을 때 카드가 렌더링됨, Ping/Select/Copy 버튼 동작
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -219,7 +219,7 @@
 - **설명**: 파서가 인식 못한 경우를 위한 수동 입력 탭. 검색 타입 드롭다운 (Texture/Geometry/Shader/CB). 타입별 입력 필드: Texture → width, height, format 입력. Geometry → vtx, idx 입력. Shader → 이름 또는 키워드 입력. CB → float 값 입력. [검색] 버튼 → `LookupEngine`의 해당 메서드 직접 호출 → 결과를 `ResultsPanel`에 표시.
 - **의존**: P2-08
 - **검증**: 수동으로 width=2048, height=2048 입력 후 검색 시 결과 표시
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -228,7 +228,7 @@
 - **설명**: 전체 파이프라인 연결. PasteArea에서 텍스트 입력 → `ClipboardParser.Parse()` → `ParseResult` 기반으로 `LookupEngine` 또는 `DrawCallMatcher` 호출 → `MatchResult` 리스트를 `ResultsPanel`에 전달. 탭 전환: 자동 검색 / 수동 검색. 스냅샷 로드: `SnapshotStore.Load()` → `LookupEngine` 초기화. Snap 버튼: Play 모드에서 `SceneSnapshot.Capture()` → `SnapshotStore.Save()` → 인덱스 리빌드.
 - **의존**: P2-06, P2-09
 - **검증**: 텍스트 붙여넣기 → 자동 파싱 → 검색 → 결과 카드 표시까지 E2E 동작, 스냅샷 없는 상태에서 검색 시 "먼저 Snap을 실행하세요" 안내
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 

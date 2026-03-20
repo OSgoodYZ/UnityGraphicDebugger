@@ -1,0 +1,3 @@
+Texture2D 2048x2048 12 mips - BC7_UNORM
+Texture2D 512x512 10 mips - ASTC_6x6
+Texture2D 4096x4096 1 mip - D32_FLOAT

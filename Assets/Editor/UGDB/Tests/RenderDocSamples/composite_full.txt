@@ -1,0 +1,8 @@
+DrawIndexed(34560, 1, 0, 0, 0)
+0	Texture2D	2048x2048	BC7_UNORM	12 mips
+1	Texture2D	2048x2048	BC7_UNORM	12 mips
+2	Texture2D	512x512	BC7_UNORM	10 mips
+float4  1.000  0.950  0.900  1.000
+float   0.730
+Keywords: _NORMALMAP _EMISSION
+Custom/CharacterPBR
