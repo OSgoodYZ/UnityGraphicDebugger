@@ -2,7 +2,7 @@
 
 > 계획서: `UnityGraphicsDebugBridge Plan v3.md`
 > Unity: 6000.0.64f1 (Unity 6), Built-in RP
-> 마지막 업데이트: 2026-03-20
+> 마지막 업데이트: 2026-03-23
 
 ## 상태 범례
 - `[ ]` 미착수
@@ -19,7 +19,7 @@
 - **설명**: Editor 폴더 구조 생성 (Core/, Parser/, RenderDoc/, UI/, Tests/, Python/), Assembly Definition 파일 생성 (`UGDB.Editor.asmdef` — Editor Only 플랫폼), 네임스페이스 `GFTeam.UGDB` 설정. 각 하위 폴더에 빈 `.gitkeep` 또는 placeholder 불필요 — asmdef만 있으면 됨.
 - **의존**: 없음
 - **검증**: Unity Editor에서 컴파일 에러 없음, asmdef가 Editor Only로 설정됨, 폴더 구조가 Architecture와 일치
-- **상태**: [ ]
+- **상태**: [~] (폴더 구조 완료, asmdef 누락)
 
 ---
 
@@ -28,7 +28,7 @@
 - **설명**: 계획서 1-1절의 수집 데이터 구조를 C# 클래스로 정의. `SnapshotResult` (최상위), `RendererEntry`, `MaterialEntry`, `ShaderEntry`, `ShaderPropertyEntry`, `VariantEntry`, `SlotState`, `TextureEntry`, `ScalarEntry`, `LightEntry`, `GlobalStateEntry`. 모든 Entry에 `[Serializable]` 어트리뷰트. `TextureSignature` 구조체 (width, height, format string, mipCount) — `IEquatable<TextureSignature>` + `GetHashCode` 구현.
 - **의존**: P1-01
 - **검증**: 컴파일 통과, 모든 Entry가 `[Serializable]`, `TextureSignature`가 `IEquatable<T>` 구현, `SnapshotResult`에 renderers/materials/shaders/textures/lights/globalState 리스트 존재
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -37,7 +37,7 @@
 - **설명**: 계획서 1-1절 수집 흐름 구현. `public static SnapshotResult Capture()` 메서드. 1) `SceneManager`로 로드된 씬 목록 2) `Camera.allCameras`로 활성 카메라 목록 3) 각 카메라의 프러스텀 컬링으로 보이는 Renderer 목록 (`GeometryUtility.CalculateFrustumPlanes` + `TestPlanesAABB`) 4) 각 Renderer의 Material → Shader 체인 수집. Renderer별: GameObject 이름, hierarchy 경로 (`GetFullPath` 유틸), 소속 씬, Mesh vtx/idx/subMeshCount. Material별: 이름, instanceId, 인스턴스 여부, renderQueue. Shader별: 이름, 에셋 경로 (`AssetDatabase.GetAssetPath`), passCount, 프로퍼티 목록 (`ShaderUtil.GetPropertyCount/Name/Type`). Play 모드가 아니면 경고 로그 + 빈 결과 반환.
 - **의존**: P1-02
 - **검증**: Play 모드에서 `Capture()` 호출 시 null 없이 데이터 반환, Renderer가 1개 이상인 씬에서 `renderers.Count > 0`, 비활성 Renderer 제외됨, Editor 모드에서 호출 시 경고 로그 출력
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -46,7 +46,7 @@
 - **설명**: P1-03의 Capture 메서드를 확장하여 각 Material의 텍스처/스칼라 프로퍼티를 수집. Shader 프로퍼티 목록을 순회하며: Texture 타입 → `mat.GetTexture()` 로 에셋 경로, 해상도, 포맷, 밉맵 수, filterMode, wrapMode, 메모리 크기, 타입(Texture2D/RT/Cubemap) 수집. Float/Range → `mat.GetFloat()`. Color → `mat.GetColor()`. Vector → `mat.GetVector()`. Int → `mat.GetInt()`. `_ST` 접미사 프로퍼티는 TextureOffset/Scale로 분류. `TextureSignature` 생성하여 `TextureEntry`에 포함.
 - **의존**: P1-03
 - **검증**: 텍스처가 할당된 Material에서 `TextureEntry`의 width/height/format이 실제 값과 일치, 스칼라 값이 Inspector에 표시되는 값과 동일
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -55,7 +55,7 @@
 - **설명**: Light 수집: `FindObjectsByType<Light>()` 로 씬 내 활성 라이트 목록. 각 라이트의 타입, color, intensity, range, shadow 설정, shadowmap 해상도, cookie 텍스처. 글로벌 상태: `Shader.GetGlobalTexture()`로 `_CameraDepthTexture` 등 글로벌 텍스처, `RenderTexture.active` + 활성 RT 목록, `LightmapSettings.lightmaps`로 라이트맵 텍스처, `RenderSettings` (ambientMode, fog 등), `QualitySettings` (shadowResolution 등).
 - **의존**: P1-03
 - **검증**: 씬에 Directional Light가 있을 때 `lights.Count > 0`, 글로벌 텍스처 중 `_CameraDepthTexture`가 수집됨 (Play 모드, 카메라에 DepthTextureMode 설정 시)
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -64,7 +64,7 @@
 - **설명**: 각 Renderer에서 `MaterialPropertyBlock`을 통해 오버라이드된 프로퍼티 수집. `renderer.GetPropertyBlock(mpb)` 후 `mpb.isEmpty`가 false이면 오버라이드 존재. Float/Color/Vector/Texture 프로퍼티를 순회하여 오버라이드 값을 `RendererEntry`에 저장. MPB 오버라이드는 Material 값보다 우선하므로 검색 시 MPB 값을 먼저 매칭.
 - **의존**: P1-03
 - **검증**: MPB를 사용하는 오브젝트가 있는 씬에서 오버라이드 프로퍼티가 수집됨, MPB가 없는 Renderer에서는 빈 리스트
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -73,7 +73,7 @@
 - **설명**: 계획서 1-3절 구현. 각 Material의 활성 키워드 조합으로 variant 식별 키 생성 (예: `"Custom/CharacterPBR|_EMISSION|_NORMALMAP"` — 키워드 알파벳 정렬). `IsRealTexture(Material, int propertyNameId)` 정적 메서드: tex == null → false, width/height <= 4 → false (Unity 기본 텍스처), 이름이 `"unity_default"`, `""`, `"UnityWhite"`, `"UnityBlack"`, `"UnityNormalMap"` → false, 그 외 → true.
 - **의존**: P1-02
 - **검증**: 동일 셰이더를 사용하되 키워드가 다른 두 Material이 서로 다른 variantKey를 가짐, `IsRealTexture`가 1x1 white 텍스처에 대해 false 반환
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -82,7 +82,7 @@
 - **설명**: 계획서 1-3절 `SlotState` + variant별 텍스처 슬롯 패턴 빌드. `BuildVariants(SnapshotResult)` 메서드: 모든 Material을 순회하며 variant 키 생성 → 같은 variant끼리 그룹핑 → 각 variant의 `textureSlotPattern` (슬롯별 real/dummy + TextureSignature) 빌드 → `scalarPattern` 빌드. 씬 전체에서 같은 셰이더의 variant 조합 목록을 수집하여 `VariantEntry.materials` 리스트에 해당 variant를 사용하는 Material들을 연결.
 - **의존**: P1-07
 - **검증**: `_NORMALMAP` 키워드가 켜진 Material의 variant에서 NormalMap 슬롯이 `isRealTexture=true`, 키워드가 꺼진 Material에서는 `isRealTexture=false`
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -91,7 +91,7 @@
 - **설명**: 계획서 1-2절의 인덱스 1, 4번 구현. `LookupEngine(SnapshotResult snapshot)` 생성자에서 인덱스 빌드. 텍스처 인덱스: `Dictionary<TextureSignature, List<TextureEntry>> textureIndex` — 해상도+포맷으로 검색. `SearchByTexture(int width, int height, string format = null)` 메서드. 지오메트리 인덱스: `Dictionary<(int vtx, int idx), List<RendererEntry>> geometryIndex` — vtx+idx로 검색. `SearchByGeometry(int? vertexCount, int? indexCount)` 메서드 (둘 중 하나만으로도 검색 가능).
 - **의존**: P1-02, P1-04
 - **검증**: 2048x2048 텍스처로 검색 시 해당 해상도의 텍스처만 반환, indexCount로 검색 시 해당 메시를 가진 Renderer만 반환
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -100,7 +100,7 @@
 - **설명**: 계획서 1-2절의 인덱스 2, 3번 구현. 셰이더 인덱스: `Dictionary<string, ShaderEntry> shaderByName`, `Dictionary<string, List<ShaderEntry>> shaderByKeyword`. `SearchByShaderName(string name)`, `SearchByKeyword(string keyword)`. 스칼라 인덱스: `Dictionary<float, List<ScalarEntry>> scalarByValue` (epsilon 0.001 범위 검색), `Dictionary<Vector4, List<ScalarEntry>> colorByValue`. `SearchByFloat(float value, float epsilon = 0.001f)`, `SearchByColor(Vector4 color, float epsilon = 0.01f)`.
 - **의존**: P1-02, P1-04
 - **검증**: 셰이더 이름 `"Standard"`로 검색 시 Standard 셰이더 사용 Material 반환, float 값 0.73으로 검색 시 `_Metallic=0.73`인 Material 반환
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -109,7 +109,7 @@
 - **설명**: 계획서 1-2절의 인덱스 5번 구현. `Dictionary<string, VariantEntry> variantIndex` (variantKey → entry), `Dictionary<string, List<VariantEntry>> variantBySlotPattern` (슬롯 패턴 문자열 → variant 목록). 슬롯 패턴 키: real/dummy 시퀀스 + 해상도 (예: `"real(2048,ASTC)|real(2048,ASTC)|dummy"`). `SearchBySlotPattern(List<SlotState> pattern)` 메서드. `SearchByVariantKey(string variantKey)` 메서드.
 - **의존**: P1-08
 - **검증**: 텍스처 슬롯 패턴 `[real, real, dummy]`으로 검색 시 `_NORMALMAP` ON / `_EMISSION` OFF variant 매칭
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -118,7 +118,7 @@
 - **설명**: 계획서 1-4절 구현. `DrawCallMatcher(LookupEngine engine)`. `Match(ParseResult query)` → `List<MatchResult>` (score 내림차순). 가중치: `WEIGHT_GEOMETRY=0.30`, `WEIGHT_TEXTURE=0.25`, `WEIGHT_SCALAR=0.20`, `WEIGHT_VARIANT=0.15`, `WEIGHT_SHADER=0.10`. `MatchResult`에 score(0~100), confidence 등급(HIGH/MEDIUM/LOW), 매칭된 RendererEntry + MaterialEntry + 각 카테고리별 부분 점수 포함. 각 카테고리의 부분 매칭: geometry → vtx+idx 완전 일치 시 1.0, texture → 일치 텍스처 수 / 전체 텍스처 수, scalar → epsilon 내 일치 값 수 / 전체 값 수, variant → 슬롯 패턴 완전 일치 시 1.0, shader → 키워드 일치 비율.
 - **의존**: P1-09, P1-10, P1-11
 - **검증**: vtx+idx+텍스처+CB값 모두 일치하는 입력에 대해 score >= 90 (HIGH), 텍스처만 일치하는 입력에 대해 score < 70
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -127,7 +127,7 @@
 - **설명**: `SnapshotResult`를 JSON으로 저장/로드. `public static void Save(SnapshotResult data, string filePath)` — `JsonUtility.ToJson(data, prettyPrint: true)` + `File.WriteAllText`. `public static SnapshotResult Load(string filePath)` — `File.ReadAllText` + `JsonUtility.FromJson<SnapshotResult>`. 기본 저장 경로: `Application.persistentDataPath + "/UGDB/"`. 파일명 패턴: `snapshot_yyyyMMdd_HHmmss.json`.
 - **의존**: P1-02
 - **검증**: Save → Load 왕복 후 데이터 일치 (renderers.Count, 첫 번째 renderer의 gameObjectName 등), 파일이 실제 디스크에 생성됨
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
