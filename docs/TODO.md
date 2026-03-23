@@ -239,7 +239,7 @@
 - **설명**: 계획서 3-2절 구현. `public static bool IsAvailable()` — RenderDoc이 로드되었는지 확인 (리플렉션으로 `UnityEditorInternal.RenderDoc` 클래스 접근). `public static void TriggerCapture()` — Game View 윈도우에 `RenderDocCapture` 커맨드 이벤트 전송. `public static string GetLatestCapturePath()` — 가장 최근 .rdc 파일 경로 반환. RenderDoc 미설치 시 graceful 경고.
 - **의존**: P2-10
 - **검증**: RenderDoc 연동 상태에서 `TriggerCapture()` 호출 시 .rdc 파일 생성, 미연동 시 `IsAvailable()` false + 경고 로그
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -248,7 +248,7 @@
 - **설명**: 계획서 3-1절 동시 캡처 플로우 구현. `public static IEnumerator CaptureFrame()` 코루틴: 1) `RenderDocBridge.TriggerCapture()`, 2) `WaitForEndOfFrame`, 3) `SceneSnapshot.Capture()`, 4) 세션 폴더 생성 (SessionManager에 위임), 5) snapshot.json + .rdc + metadata.json 저장. `metadata.json`: Unity 버전, 해상도, 그래픽스 API, 캡처 시각. Play 모드가 아니면 RenderDoc 캡처 스킵 (스냅샷만 수행).
 - **의존**: P3-01
 - **검증**: Snap 실행 시 세션 폴더에 snapshot.json + capture.rdc + metadata.json 3개 파일 생성
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -257,7 +257,7 @@
 - **설명**: 세션 폴더 생성/목록/삭제 관리. 기본 경로: 프로젝트 루트 `UGDBCaptures/`. 폴더 명명: `yyyyMMdd_HHmmss/`. `public static string CreateSession()` → 새 세션 폴더 경로. `public static List<SessionInfo> GetSessions()` → 기존 세션 목록 (날짜, renderer 수, 텍스처 수 등 metadata 파싱). `public static void DeleteSession(string path)`. `SessionInfo` 데이터 클래스.
 - **의존**: P3-02
 - **검증**: 세션 생성 → 목록에 표시 → 삭제 → 목록에서 제거
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -266,7 +266,7 @@
 - **설명**: Snap 버튼을 실제 `CaptureCoordinator`에 연결. 상단에 세션 드롭다운: `SessionManager.GetSessions()` 목록 표시, 선택 시 해당 세션의 snapshot.json 로드 → LookupEngine 리빌드. RenderDoc 연동 상태 표시: 아이콘/라벨로 `RenderDocBridge.IsAvailable()` 결과 표시. 비연동 시 "RenderDoc 없이 Snap (스냅샷만)" 모드 지원.
 - **의존**: P3-03
 - **검증**: Snap 버튼 클릭 → 세션 생성 → 드롭다운에 새 세션 표시 → 선택 시 검색 가능
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 

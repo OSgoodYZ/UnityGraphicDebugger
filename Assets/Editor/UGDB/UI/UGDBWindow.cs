@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UGDB.Core;
 using UGDB.Parser;
+using UGDB.RenderDoc;
 
 namespace UGDB.UI
 {
@@ -38,7 +39,7 @@ namespace UGDB.UI
         private int _historyIndex = -1;
 
         // 스냅샷 세션
-        private string[] _sessionPaths;
+        private List<SessionManager.SessionInfo> _sessions = new List<SessionManager.SessionInfo>();
         private string[] _sessionNames;
         private int _selectedSession = -1;
 
@@ -85,8 +86,16 @@ namespace UGDB.UI
             GUILayout.Label("UGDB Lookup", EditorStyles.boldLabel);
             GUILayout.FlexibleSpace();
 
-            // Snap 버튼 (Phase 3에서 실제 연결, 지금은 placeholder)
-            if (GUILayout.Button("Snap", EditorStyles.toolbarButton, GUILayout.Width(50)))
+            // RenderDoc 연동 상태 표시
+            bool rdcAvailable = RenderDocBridge.IsAvailable();
+            var rdcLabel = rdcAvailable ? "RenderDoc: ON" : "RenderDoc: OFF";
+            var rdcStyle = new GUIStyle(EditorStyles.miniLabel);
+            rdcStyle.normal.textColor = rdcAvailable ? new Color(0.2f, 0.8f, 0.2f) : Color.gray;
+            GUILayout.Label(rdcLabel, rdcStyle);
+
+            // Snap 버튼
+            var snapLabel = rdcAvailable ? "Snap + RDC" : "Snap";
+            if (GUILayout.Button(snapLabel, EditorStyles.toolbarButton, GUILayout.Width(rdcAvailable ? 80 : 50)))
             {
                 OnSnapClicked();
             }
@@ -112,14 +121,14 @@ namespace UGDB.UI
                 EditorGUILayout.LabelField("스냅샷 없음 — Snap 버튼을 눌러 수집하세요", EditorStyles.miniLabel);
             }
 
-            // 세션 드롭다운
+            // 세션 드롭다운 (SessionManager 기반)
             if (_sessionNames != null && _sessionNames.Length > 0)
             {
-                int newSelection = EditorGUILayout.Popup(_selectedSession, _sessionNames, GUILayout.Width(180));
+                int newSelection = EditorGUILayout.Popup(_selectedSession, _sessionNames, GUILayout.Width(220));
                 if (newSelection != _selectedSession && newSelection >= 0)
                 {
                     _selectedSession = newSelection;
-                    LoadSession(_sessionPaths[_selectedSession]);
+                    LoadSession(_sessions[_selectedSession].path);
                 }
             }
 
@@ -202,19 +211,33 @@ namespace UGDB.UI
                 return;
             }
 
-            _snapshotData = SceneSnapshot.Capture();
-            if (_snapshotData != null)
+            // CaptureCoordinator를 통해 RenderDoc + SceneSnapshot 동시 캡처
+            var result = CaptureCoordinator.CaptureFrame();
+
+            if (result.success && result.snapshotData != null)
             {
+                _snapshotData = result.snapshotData;
                 _engine = new LookupEngine();
                 _engine.BuildIndices(_snapshotData);
                 _matcher = new DrawCallMatcher(_engine);
 
-                SnapshotStore.Save(_snapshotData);
                 RefreshSessionList();
 
-                Debug.Log(string.Format("[UGDB] Snap 완료: {0} renderers, {1} textures",
-                    _snapshotData.statistics.totalRenderers,
-                    _snapshotData.statistics.totalTextures));
+                // 새로 생성된 세션을 선택
+                for (int i = 0; i < _sessions.Count; i++)
+                {
+                    if (_sessions[i].path == result.sessionDir)
+                    {
+                        _selectedSession = i;
+                        break;
+                    }
+                }
+
+                Repaint();
+            }
+            else if (!string.IsNullOrEmpty(result.errorMessage))
+            {
+                EditorUtility.DisplayDialog("UGDB", result.errorMessage, "확인");
             }
         }
 
@@ -275,27 +298,23 @@ namespace UGDB.UI
             return query;
         }
 
-        // ── 세션 관리 ──
+        // ── 세션 관리 (SessionManager 기반) ──
 
         private void RefreshSessionList()
         {
-            _sessionPaths = SnapshotStore.GetAllSessions();
-            if (_sessionPaths != null && _sessionPaths.Length > 0)
+            _sessions = SessionManager.GetSessions();
+            if (_sessions.Count > 0)
             {
-                _sessionNames = new string[_sessionPaths.Length];
-                for (int i = 0; i < _sessionPaths.Length; i++)
+                _sessionNames = new string[_sessions.Count];
+                for (int i = 0; i < _sessions.Count; i++)
                 {
-                    var meta = SnapshotStore.LoadMetadata(_sessionPaths[i]);
-                    if (meta != null)
-                        _sessionNames[i] = string.Format("{0} ({1}r)", meta.captureTime, meta.rendererCount);
-                    else
-                        _sessionNames[i] = System.IO.Path.GetFileName(_sessionPaths[i]);
+                    _sessionNames[i] = SessionManager.GetDisplayName(_sessions[i]);
                 }
 
-                if (_selectedSession < 0 && _sessionPaths.Length > 0)
+                if (_selectedSession < 0 && _sessions.Count > 0)
                 {
                     _selectedSession = 0;
-                    LoadSession(_sessionPaths[0]);
+                    LoadSession(_sessions[0].path);
                 }
             }
             else
