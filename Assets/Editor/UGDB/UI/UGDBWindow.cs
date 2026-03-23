@@ -21,13 +21,14 @@ namespace UGDB.UI
         }
 
         // 탭
-        private enum Tab { AutoSearch, ManualSearch }
+        private enum Tab { AutoSearch, ManualSearch, AutoMatch }
         private Tab _currentTab = Tab.AutoSearch;
 
         // 컴포넌트
         private PasteArea _pasteArea;
         private ResultsPanel _resultsPanel;
         private ManualSearchPanel _manualSearchPanel;
+        private AutoMatchPanel _autoMatchPanel;
 
         // 데이터
         private LookupEngine _engine;
@@ -43,11 +44,15 @@ namespace UGDB.UI
         private string[] _sessionNames;
         private int _selectedSession = -1;
 
+        // Auto-Match 상태
+        private bool _autoMatchRunning;
+
         private void OnEnable()
         {
             _pasteArea = new PasteArea();
             _resultsPanel = new ResultsPanel();
             _manualSearchPanel = new ManualSearchPanel();
+            _autoMatchPanel = new AutoMatchPanel();
 
             _pasteArea.OnSearchRequested = OnAutoSearch;
             _manualSearchPanel.OnSearchRequested = OnManualSearch;
@@ -63,7 +68,7 @@ namespace UGDB.UI
             EditorGUILayout.Space(4);
 
             // 탭
-            _currentTab = (Tab)GUILayout.Toolbar((int)_currentTab, new[] { "자동 검색", "수동 검색" });
+            _currentTab = (Tab)GUILayout.Toolbar((int)_currentTab, new[] { "자동 검색", "수동 검색", "Auto-Match" });
 
             EditorGUILayout.Space(4);
 
@@ -74,6 +79,9 @@ namespace UGDB.UI
                     break;
                 case Tab.ManualSearch:
                     DrawManualSearchTab();
+                    break;
+                case Tab.AutoMatch:
+                    DrawAutoMatchTab();
                     break;
             }
 
@@ -178,6 +186,65 @@ namespace UGDB.UI
             _resultsPanel.Draw();
         }
 
+        private void DrawAutoMatchTab()
+        {
+            // renderdoccmd 경로 설정
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("renderdoccmd:", GUILayout.Width(90));
+            var cmdPath = EditorPrefs.GetString("UGDB_RenderDocCmdPath", "");
+            var newPath = EditorGUILayout.TextField(cmdPath);
+            if (newPath != cmdPath)
+                EditorPrefs.SetString("UGDB_RenderDocCmdPath", newPath);
+
+            if (GUILayout.Button("...", GUILayout.Width(30)))
+            {
+                var selected = EditorUtility.OpenFilePanel("renderdoccmd 선택", "", "exe");
+                if (!string.IsNullOrEmpty(selected))
+                {
+                    EditorPrefs.SetString("UGDB_RenderDocCmdPath", selected);
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space(4);
+
+            // Auto-Match 실행 버튼
+            EditorGUILayout.BeginHorizontal();
+
+            GUI.enabled = !_autoMatchRunning && _snapshotData != null
+                && _selectedSession >= 0 && _selectedSession < _sessions.Count
+                && _sessions[_selectedSession].hasRdc;
+
+            if (GUILayout.Button("Auto-Match 실행", GUILayout.Height(28)))
+            {
+                OnAutoMatchClicked();
+            }
+            GUI.enabled = true;
+
+            // JSON 직접 로드 버튼
+            if (GUILayout.Button("JSON 로드", GUILayout.Width(80), GUILayout.Height(28)))
+            {
+                OnLoadAutoMatchJson();
+            }
+
+            EditorGUILayout.EndHorizontal();
+
+            // 안내 메시지
+            if (_snapshotData == null)
+            {
+                EditorGUILayout.HelpBox("먼저 Snap을 실행하거나 세션을 로드하세요.", MessageType.Warning);
+            }
+            else if (_selectedSession < 0 || _selectedSession >= _sessions.Count || !_sessions[_selectedSession].hasRdc)
+            {
+                EditorGUILayout.HelpBox("현재 세션에 .rdc 파일이 없습니다. RenderDoc이 연동된 상태에서 Snap을 실행하세요.", MessageType.Warning);
+            }
+
+            EditorGUILayout.Space(4);
+
+            // 결과 패널
+            _autoMatchPanel.Draw();
+        }
+
         private void DrawStatusBar()
         {
             EditorGUILayout.Space(4);
@@ -267,6 +334,70 @@ namespace UGDB.UI
         private void OnManualSearch(List<DrawCallMatcher.MatchResult> results)
         {
             _resultsPanel.SetResults(results);
+            Repaint();
+        }
+
+        private void OnAutoMatchClicked()
+        {
+            if (_snapshotData == null || _selectedSession < 0 || _selectedSession >= _sessions.Count)
+                return;
+
+            var sessionPath = _sessions[_selectedSession].path;
+
+            _autoMatchRunning = true;
+            EditorUtility.DisplayProgressBar("UGDB Auto-Match", "pyrenderdoc로 .rdc 파싱 중...", 0.3f);
+
+            try
+            {
+                var report = AutoMatcher.MatchFromSession(sessionPath, _snapshotData);
+                if (report != null)
+                {
+                    _autoMatchPanel.SetReport(report);
+                }
+                else
+                {
+                    EditorUtility.DisplayDialog("UGDB", "Auto-Match 실패. 콘솔 로그를 확인하세요.", "확인");
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("[UGDB] Auto-Match 오류: " + e.Message);
+                EditorUtility.DisplayDialog("UGDB", "Auto-Match 오류: " + e.Message, "확인");
+            }
+            finally
+            {
+                _autoMatchRunning = false;
+                EditorUtility.ClearProgressBar();
+                Repaint();
+            }
+        }
+
+        private void OnLoadAutoMatchJson()
+        {
+            var jsonPath = EditorUtility.OpenFilePanel("Auto-Match JSON 선택", "", "json");
+            if (string.IsNullOrEmpty(jsonPath))
+                return;
+
+            if (_snapshotData == null)
+            {
+                EditorUtility.DisplayDialog("UGDB", "먼저 스냅샷을 로드하세요.", "확인");
+                return;
+            }
+
+            try
+            {
+                var report = AutoMatcher.Match(jsonPath, _snapshotData);
+                if (report != null)
+                {
+                    _autoMatchPanel.SetReport(report);
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("[UGDB] JSON 로드 오류: " + e.Message);
+                EditorUtility.DisplayDialog("UGDB", "JSON 로드 오류: " + e.Message, "확인");
+            }
+
             Repaint();
         }
 

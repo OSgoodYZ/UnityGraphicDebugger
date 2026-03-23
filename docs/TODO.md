@@ -286,7 +286,7 @@
 - **설명**: 계획서 4-1절. pyrenderdoc API로 .rdc 파일을 열어 전체 드로우콜 목록 추출. 각 드로우콜의 GPU 바인딩 정보: 텍스처 슬롯 (해상도, 포맷), CB 값, 셰이더 키워드, vtx/idx count. 결과를 JSON으로 출력 (stdout 또는 파일). CLI 인터페이스: `python extract_rdc_bindings.py <input.rdc> <output.json>`.
 - **의존**: P3-05
 - **검증**: 실제 .rdc 파일에 대해 실행 시 유효한 JSON 출력
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -295,7 +295,7 @@
 - **설명**: Python 스크립트의 JSON 출력을 파싱하여 각 드로우콜에 대해 `DrawCallMatcher`로 자동 매칭. `public static List<AutoMatchResult> Match(string rdcJsonPath, SnapshotResult snapshot)`. `AutoMatchResult`: drawCallIndex, drawCallName, MatchResult(from DrawCallMatcher), 매칭 여부.
 - **의존**: P4-01
 - **검증**: JSON 입력에 대해 매칭 결과 리스트 반환, 매칭 실패 항목은 unmatched 표시
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -304,7 +304,7 @@
 - **설명**: 전체 드로우콜 목록을 스크롤 뷰로 표시. 각 행: Draw #N → Unity 오브젝트/머티리얼 (confidence %). 필터: matched only / unmatched only / all. 정렬: confidence 순 / 드로우콜 순서. 행 클릭 시 해당 결과의 상세 카드 (ResultsPanel 재사용).
 - **의존**: P4-02
 - **검증**: AutoMatch 실행 후 드로우콜 목록이 표시됨, 필터/정렬 동작
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
@@ -313,7 +313,7 @@
 - **설명**: UGDBWindow에 탭 추가: Lookup / Auto-Match. Auto-Match 탭: [Auto-Match] 버튼 → Python 스크립트 실행 → 결과를 AutoMatchPanel에 표시. Python 경로 설정 (EditorPrefs). 진행 상태 표시 (EditorUtility.DisplayProgressBar).
 - **의존**: P4-03
 - **검증**: Auto-Match 버튼 클릭 → Python 실행 → 결과 UI 표시
-- **상태**: [ ]
+- **상태**: [x]
 
 ---
 
