@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(git worktree:*)",
-      "Bash(git branch:*)"
+      "Bash(git branch:*)",
+      "Bash(grep -E \"\\\\.cs$\")",
+      "Bash(grep -h \"^namespace\" F:/Company/GFTeam/UnityGraphicsDebugger/OsgoodDebugger/Assets/Editor/UGDB/Core/*.cs)"
     ]
   }
 }
