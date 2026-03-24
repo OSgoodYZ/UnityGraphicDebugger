@@ -105,7 +105,8 @@ namespace UGDB.UI
             var snapLabel = rdcAvailable ? "Snap + RDC" : "Snap";
             if (GUILayout.Button(snapLabel, EditorStyles.toolbarButton, GUILayout.Width(rdcAvailable ? 80 : 50)))
             {
-                OnSnapClicked();
+                // RepaintImmediately가 현재 레이아웃을 깨뜨리지 않도록 OnGUI 밖에서 실행
+                EditorApplication.delayCall += OnSnapClicked;
             }
 
             EditorGUILayout.EndHorizontal();
