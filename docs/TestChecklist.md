@@ -38,9 +38,9 @@
 | # | 할 일 | 확인 포인트 |
 |---|------|-----------|
 | Q4 | Play 모드 진입 | - | [x] |
-| Q5 | UGDB 윈도우에서 **Snap** 클릭 | 콘솔에 `[UGDB]` 로그 출력, 스냅샷 통계 표시 |
-| Q6 | RenderDoc 연동 시: 세션 폴더 확인 | `UGDBCaptures/yyyyMMdd_HHmmss/` 폴더에 snapshot.json + capture.rdc + metadata.json 존재 |
-| Q7 | 세션 드롭다운에 새 세션 표시 | 방금 생성한 세션이 목록에 보임 |
+| Q5 | UGDB 윈도우에서 **Snap** 클릭 | 콘솔에 `[UGDB]` 로그 출력, 스냅샷 통계 표시 | [x] |
+| Q6 | RenderDoc 연동 시: 세션 폴더 확인 | `UGDBCaptures/yyyyMMdd_HHmmss/` 폴더에 snapshot.json + capture.rdc + metadata.json 존재 | [x] |
+| Q7 | 세션 드롭다운에 새 세션 표시 | 방금 생성한 세션이 목록에 보임 | [x] |
 
 ### Step 3: 클립보드 파싱 → 자동 검색
 
