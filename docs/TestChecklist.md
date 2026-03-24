@@ -18,26 +18,26 @@
 
 ### 사전 준비
 
-- [ ] **Unity 열기**: Unity 6000.0.64f1로 프로젝트 오픈 → 컴파일 에러 없음 확인
-- [ ] **테스트 씬 준비**: Renderer가 포함된 오브젝트 최소 3개 배치 (서로 다른 Material/Shader 사용 권장)
+- [x] **Unity 열기**: Unity 6000.0.64f1로 프로젝트 오픈 → 컴파일 에러 없음 확인
+- [x] **테스트 씬 준비**: Renderer가 포함된 오브젝트 최소 3개 배치 (서로 다른 Material/Shader 사용 권장)
   - Cube (Standard 셰이더, 텍스처 할당, Metallic=0.73 등 스칼라 설정)
   - Sphere (Custom 셰이더 또는 다른 키워드 조합)
   - Plane (MaterialPropertyBlock으로 오버라이드 설정)
-- [ ] **RenderDoc 확인**: `Edit > Preferences > External Tools`에서 RenderDoc 연동 상태 확인
+- [x] **RenderDoc 확인**: `Edit > Preferences > External Tools`에서 RenderDoc 연동 상태 확인
 
 ### Step 1: 컴파일 & 기본 동작
 
 | # | 할 일 | 확인 포인트 |
 |---|------|-----------|
-| Q1 | `Window > UGDB Lookup` 메뉴 클릭 | UGDB 윈도우가 정상 표시됨 |
-| Q2 | Editor 모드에서 Snap 버튼 클릭 | 경고 메시지 표시 (Play 모드 아님) |
-| Q3 | 탭 전환 (자동검색 / 수동검색 / AutoMatch) | 각 탭이 에러 없이 전환됨 |
+| Q1 | `Window > UGDB Lookup` 메뉴 클릭 | UGDB 윈도우가 정상 표시됨 | [x] |
+| Q2 | Editor 모드에서 Snap 버튼 클릭 | 경고 메시지 표시 (Play 모드 아님) | [x] |
+| Q3 | 탭 전환 (자동검색 / 수동검색 / AutoMatch) | 각 탭이 에러 없이 전환됨 | [x] |
 
 ### Step 2: Play 모드 Snap
 
 | # | 할 일 | 확인 포인트 |
 |---|------|-----------|
-| Q4 | Play 모드 진입 | - |
+| Q4 | Play 모드 진입 | - | [x] |
 | Q5 | UGDB 윈도우에서 **Snap** 클릭 | 콘솔에 `[UGDB]` 로그 출력, 스냅샷 통계 표시 |
 | Q6 | RenderDoc 연동 시: 세션 폴더 확인 | `UGDBCaptures/yyyyMMdd_HHmmss/` 폴더에 snapshot.json + capture.rdc + metadata.json 존재 |
 | Q7 | 세션 드롭다운에 새 세션 표시 | 방금 생성한 세션이 목록에 보임 |

@@ -1,0 +1,13 @@
+{
+    "captureTime": "2026-03-24 16:17:00",
+    "unityVersion": "6000.0.64f1",
+    "graphicsAPI": "Direct3D11",
+    "screenWidth": 1200,
+    "screenHeight": 723,
+    "rendererCount": 3,
+    "materialCount": 1,
+    "textureCount": 0,
+    "textureMemoryMB": 0.0,
+    "renderDocAvailable": true,
+    "rdcCaptured": true
+}
