@@ -60,7 +60,7 @@ namespace UGDB.RenderDoc
 
         /// <summary>
         /// RenderDoc 캡처를 트리거한다.
-        /// Game View 윈도우를 찾아 RenderDocCapture 커맨드 이벤트를 전송한다.
+        /// BeginCaptureRenderDoc/EndCaptureRenderDoc API를 리플렉션으로 호출한다.
         /// </summary>
         public static bool TriggerCapture()
         {
@@ -86,8 +86,38 @@ namespace UGDB.RenderDoc
                     return false;
                 }
 
+                // Begin/End 캡처 API 사용 (Unity 6 호환)
+                var beginCapture = RenderDocType.GetMethod("BeginCaptureRenderDoc",
+                    BindingFlags.Public | BindingFlags.Static);
+                var endCapture = RenderDocType.GetMethod("EndCaptureRenderDoc",
+                    BindingFlags.Public | BindingFlags.Static);
+
+                if (beginCapture != null && endCapture != null)
+                {
+                    beginCapture.Invoke(null, new object[] { gameView });
+
+                    // RepaintImmediately로 프레임을 즉시 렌더링하여 캡처에 포함시킨다
+                    var repaintImmediate = typeof(EditorWindow).GetMethod("RepaintImmediately",
+                        BindingFlags.Instance | BindingFlags.NonPublic);
+                    if (repaintImmediate != null)
+                    {
+                        repaintImmediate.Invoke(gameView, null);
+                    }
+                    else
+                    {
+                        // RepaintImmediately를 못 찾으면 일반 Repaint + 동기 대기
+                        gameView.Repaint();
+                    }
+
+                    endCapture.Invoke(null, new object[] { gameView });
+                    Debug.Log("[UGDB] RenderDoc 캡처 완료 (BeginCapture/EndCapture)");
+                    return true;
+                }
+
+                // 폴백: SendEvent 방식 (레거시 Unity)
+                Debug.LogWarning("[UGDB] BeginCapture/EndCapture API를 찾을 수 없습니다. SendEvent 폴백 사용.");
                 gameView.SendEvent(EditorGUIUtility.CommandEvent("RenderDocCapture"));
-                Debug.Log("[UGDB] RenderDoc 캡처 트리거됨");
+                Debug.Log("[UGDB] RenderDoc 캡처 트리거됨 (SendEvent 폴백)");
                 return true;
             }
             catch (Exception e)
@@ -99,63 +129,88 @@ namespace UGDB.RenderDoc
 
         /// <summary>
         /// RenderDoc이 생성한 가장 최근 .rdc 파일의 경로를 반환한다.
+        /// Unity RenderDoc API → 프로젝트 폴더 → 임시 폴더 순으로 탐색.
         /// </summary>
         public static string GetLatestCapturePath()
         {
-            try
+            // 1) Unity RenderDoc API로 직접 경로 가져오기 (여러 메서드명 시도)
+            string[] methodNames = { "GetLastCaptureFilePath", "GetCapture", "GetLastCapturePath" };
+            if (RenderDocType != null)
             {
-                var getLastCapturePathMethod = RenderDocType != null
-                    ? RenderDocType.GetMethod("GetLastCaptureFilePath",
-                        BindingFlags.Public | BindingFlags.Static)
-                    : null;
-
-                if (getLastCapturePathMethod != null)
+                foreach (var name in methodNames)
                 {
-                    var path = getLastCapturePathMethod.Invoke(null, null) as string;
-                    if (!string.IsNullOrEmpty(path) && File.Exists(path))
-                        return path;
+                    try
+                    {
+                        var method = RenderDocType.GetMethod(name,
+                            BindingFlags.Public | BindingFlags.Static);
+                        if (method == null) continue;
+
+                        object result;
+                        var parameters = method.GetParameters();
+                        if (parameters.Length == 0)
+                            result = method.Invoke(null, null);
+                        else if (parameters.Length == 1 && parameters[0].ParameterType == typeof(int))
+                            result = method.Invoke(null, new object[] { 0 });
+                        else
+                            continue;
+
+                        var path = result as string;
+                        if (!string.IsNullOrEmpty(path) && File.Exists(path))
+                        {
+                            Debug.Log($"[UGDB] .rdc 경로 (API: {name}): {path}");
+                            return path;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // 다음 메서드 시도
+                    }
                 }
             }
-            catch (Exception)
-            {
-                // 리플렉션 실패 시 폴백
-            }
 
-            // 폴백: 임시 폴더에서 가장 최근 .rdc 파일 검색
-            return FindLatestRdcInTempFolder();
+            // 2) 프로젝트 루트 부근에서 최근 .rdc 검색 (RenderDoc 기본 캡처 위치)
+            var projectPath = Path.GetDirectoryName(Application.dataPath);
+            var rdcInProject = FindLatestRdc(projectPath, SearchOption.TopDirectoryOnly);
+            if (rdcInProject != null) return rdcInProject;
+
+            // 3) 임시 폴더에서 검색
+            return FindLatestRdc(Path.GetTempPath(), SearchOption.TopDirectoryOnly);
         }
 
         /// <summary>
-        /// 임시 폴더에서 가장 최근에 생성된 .rdc 파일을 검색한다.
+        /// 지정 폴더에서 가장 최근 .rdc 파일을 검색한다.
+        /// 캡처 직후이므로 최근 10초 이내 파일만 대상으로 한다.
         /// </summary>
-        private static string FindLatestRdcInTempFolder()
+        private static string FindLatestRdc(string searchPath, SearchOption option)
         {
-            var tempPath = Path.GetTempPath();
+            if (!Directory.Exists(searchPath)) return null;
+
             string latestFile = null;
             DateTime latestTime = DateTime.MinValue;
+            var threshold = DateTime.Now.AddSeconds(-10);
 
             try
             {
-                var rdcFiles = Directory.GetFiles(tempPath, "*.rdc", SearchOption.TopDirectoryOnly);
+                var rdcFiles = Directory.GetFiles(searchPath, "*.rdc", option);
                 foreach (var file in rdcFiles)
                 {
                     var writeTime = File.GetLastWriteTime(file);
-                    if (writeTime > latestTime)
+                    if (writeTime > latestTime && writeTime > threshold)
                     {
                         latestTime = writeTime;
                         latestFile = file;
                     }
                 }
 
-                // RenderDoc 기본 캡처 폴더도 확인
-                var rdocCapturePath = Path.Combine(tempPath, "RenderDoc");
-                if (Directory.Exists(rdocCapturePath))
+                // RenderDoc 하위 폴더도 확인
+                var rdocSubDir = Path.Combine(searchPath, "RenderDoc");
+                if (Directory.Exists(rdocSubDir))
                 {
-                    var rdcInRdoc = Directory.GetFiles(rdocCapturePath, "*.rdc", SearchOption.AllDirectories);
-                    foreach (var file in rdcInRdoc)
+                    var rdcInSub = Directory.GetFiles(rdocSubDir, "*.rdc", SearchOption.AllDirectories);
+                    foreach (var file in rdcInSub)
                     {
                         var writeTime = File.GetLastWriteTime(file);
-                        if (writeTime > latestTime)
+                        if (writeTime > latestTime && writeTime > threshold)
                         {
                             latestTime = writeTime;
                             latestFile = file;
@@ -165,8 +220,11 @@ namespace UGDB.RenderDoc
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[UGDB] .rdc 파일 검색 실패: {e.Message}");
+                Debug.LogWarning($"[UGDB] .rdc 검색 실패 ({searchPath}): {e.Message}");
             }
+
+            if (latestFile != null)
+                Debug.Log($"[UGDB] .rdc 발견: {latestFile}");
 
             return latestFile;
         }

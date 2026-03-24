@@ -78,7 +78,6 @@ namespace UGDB.RenderDoc
                 // 5) .rdc 파일 복사 (캡처 성공 시)
                 if (result.rdcCaptured)
                 {
-                    // RenderDoc이 파일을 쓰는 데 약간의 지연이 있을 수 있음
                     var rdcPath = RenderDocBridge.GetLatestCapturePath();
                     if (!string.IsNullOrEmpty(rdcPath))
                     {
@@ -89,7 +88,8 @@ namespace UGDB.RenderDoc
                     }
                     else
                     {
-                        Debug.LogWarning("[UGDB] RenderDoc 캡처 파일을 찾을 수 없습니다. .rdc 없이 세션을 저장합니다.");
+                        Debug.LogWarning("[UGDB] RenderDoc 캡처는 트리거되었으나 .rdc 파일을 찾을 수 없습니다.");
+                        Debug.LogWarning("[UGDB] RenderDoc이 Unity에 Load되어 있는지 확인하세요 (Edit > Preferences > External Tools > Load RenderDoc).");
                         result.rdcCaptured = false;
                     }
                 }
