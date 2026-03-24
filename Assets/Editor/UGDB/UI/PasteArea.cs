@@ -59,6 +59,29 @@ namespace UGDB.UI
                 EditorGUILayout.LabelField("인식된 패턴 없음", EditorStyles.helpBox);
             }
 
+            // 더미 텍스처 경고
+            if (_lastParseResult != null && _lastParseResult.textures.Count > 0)
+            {
+                bool hasDummy = false;
+                for (int i = 0; i < _lastParseResult.textures.Count; i++)
+                {
+                    var sig = _lastParseResult.textures[i];
+                    if (sig.width <= 4 && sig.height <= 4)
+                    {
+                        hasDummy = true;
+                        break;
+                    }
+                }
+                if (hasDummy)
+                {
+                    EditorGUILayout.EndHorizontal();
+                    EditorGUILayout.HelpBox(
+                        "텍스처 해상도가 4x4 이하입니다. Unity 내부 기본 텍스처일 수 있으며, 검색 결과가 정확하지 않을 수 있습니다.",
+                        MessageType.Warning);
+                    EditorGUILayout.BeginHorizontal();
+                }
+            }
+
             // 검색 버튼
             GUI.enabled = _lastParseResult != null && _lastParseResult.queryType != QueryType.Unknown;
             if (GUILayout.Button("검색", GUILayout.Width(60)))
