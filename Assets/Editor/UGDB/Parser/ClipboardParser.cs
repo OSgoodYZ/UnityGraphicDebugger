@@ -65,6 +65,23 @@ namespace UGDB.Parser
                 return true;
             }
 
+            // 패턴 B2: RenderDoc Pipeline State 공백 구분 실제 복사 형식
+            // "2: texture2 UnityWhite Texture 2D 4 4 1 1 R8G8B8A8_SRGB"
+            var matchB2 = ClipboardPatterns.PatternB2.Match(line);
+            if (matchB2.Success)
+            {
+                int slot = int.Parse(matchB2.Groups[1].Value);
+                int w = int.Parse(matchB2.Groups[2].Value);
+                int h = int.Parse(matchB2.Groups[3].Value);
+                int mips = int.Parse(matchB2.Groups[4].Value);
+                string fmt = matchB2.Groups[5].Value;
+
+                var sig = new TextureSignature(w, h, fmt, mips);
+                result.textures.Add(sig);
+                result.textureSlotIndices.Add(slot);
+                return true;
+            }
+
             // 패턴 A: Resource 패널
             var matchA = ClipboardPatterns.PatternA.Match(line);
             if (matchA.Success)

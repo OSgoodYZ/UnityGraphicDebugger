@@ -28,6 +28,15 @@ namespace UGDB.Parser
             RegexOptions.Compiled);
 
         /// <summary>
+        /// 패턴 B2: Pipeline State 공백 구분 (RenderDoc 실제 복사 형식)
+        /// "2: texture2 UnityWhite Texture 2D 4 4 1 1 R8G8B8A8_SRGB"
+        /// Groups: 1=slot, 2=width, 3=height, 4=mipCount, 5=format
+        /// </summary>
+        public static readonly Regex PatternB2 = new Regex(
+            @"(\d+):\s+\S+\s+.+?\s+Texture\s+(?:1D|2D|3D|Cube)\s+(\d+)\s+(\d+)\s+\d+\s+(\d+)\s+(\S+)",
+            RegexOptions.Compiled);
+
+        /// <summary>
         /// 패턴 C: 해상도만 — "2048x2048"
         /// Groups: 1=width, 2=height
         /// </summary>
