@@ -264,9 +264,11 @@ namespace UGDB.Core
             }
 
             // renderdoccmd python <script> <rdc> <output>
+            // renderdoccmd는 인자를 직접 전달하므로 스크립트 경로 뒤에 인자를 나열
             var args = string.Format("python \"{0}\" \"{1}\" \"{2}\"", scriptPath, rdcPath, outputJsonPath);
 
-            Debug.Log("[UGDB] Running: " + renderDocCmdPath + " " + args);
+            var fullCommand = renderDocCmdPath + " " + args;
+            Debug.Log("[UGDB] Running: " + fullCommand);
 
             try
             {
@@ -283,20 +285,32 @@ namespace UGDB.Core
 
                 using (var proc = Process.Start(psi))
                 {
-                    var stdout = proc.StandardOutput.ReadToEnd();
-                    var stderr = proc.StandardError.ReadToEnd();
+                    // 데드락 방지: stderr를 비동기로 읽기
+                    string stderr = "";
+                    proc.ErrorDataReceived += (sender, e) =>
+                    {
+                        if (!string.IsNullOrEmpty(e.Data))
+                            stderr += e.Data + "\n";
+                    };
+                    proc.BeginErrorReadLine();
 
+                    var stdout = proc.StandardOutput.ReadToEnd();
                     proc.WaitForExit(120000); // 2분 타임아웃
 
                     if (!string.IsNullOrEmpty(stdout))
-                        Debug.Log("[UGDB] Python stdout: " + stdout);
+                        Debug.Log("[UGDB] Python stdout:\n" + stdout);
 
                     if (!string.IsNullOrEmpty(stderr))
-                        Debug.LogWarning("[UGDB] Python stderr: " + stderr);
+                        Debug.LogWarning("[UGDB] Python stderr:\n" + stderr);
 
                     if (proc.ExitCode != 0)
                     {
-                        Debug.LogError(string.Format("[UGDB] Python 스크립트 실패 (exit code: {0})", proc.ExitCode));
+                        Debug.LogError(string.Format(
+                            "[UGDB] Python 스크립트 실패 (exit code: {0})\n" +
+                            "실행 명령: {1}\n" +
+                            "stderr: {2}\n\n" +
+                            "터미널에서 직접 실행하여 확인해보세요:\n{1}",
+                            proc.ExitCode, fullCommand, stderr));
                         return false;
                     }
                 }
@@ -312,7 +326,8 @@ namespace UGDB.Core
             }
             catch (Exception e)
             {
-                Debug.LogError("[UGDB] Python 스크립트 실행 오류: " + e.Message);
+                Debug.LogError(string.Format(
+                    "[UGDB] Python 스크립트 실행 오류: {0}\n실행 명령: {1}", e.Message, fullCommand));
                 return false;
             }
         }
