@@ -263,26 +263,39 @@ namespace UGDB.Core
                 return false;
             }
 
-            // 시스템 Python으로 실행 + PYTHONPATH에 RenderDoc 디렉토리 설정
-            var pythonExe = FindPythonExecutable();
-            if (string.IsNullOrEmpty(pythonExe))
+            // qrenderdoc --python 방식으로 실행 (RenderDoc 내장 Python + pyrenderdoc 사용)
+            var renderDocDir = Path.GetDirectoryName(renderDocCmdPath);
+            var qrenderdocPath = Path.Combine(renderDocDir, "qrenderdoc.exe");
+
+            if (!File.Exists(qrenderdocPath))
             {
-                Debug.LogError("[UGDB] Python을 찾을 수 없습니다. Python 3.x를 설치하고 PATH에 추가하세요.");
+                Debug.LogError("[UGDB] qrenderdoc.exe를 찾을 수 없습니다: " + qrenderdocPath);
                 return false;
             }
 
-            var renderDocDir = Path.GetDirectoryName(renderDocCmdPath);
-            var args = string.Format("\"{0}\" \"{1}\" \"{2}\"", scriptPath, rdcPath, outputJsonPath);
+            // 래퍼 스크립트 생성: qrenderdoc --python은 인자 전달이 안 되므로
+            // .rdc 경로와 출력 경로를 하드코딩한 임시 스크립트를 생성
+            var wrapperPath = Path.Combine(Path.GetDirectoryName(outputJsonPath), "_ugdb_extract_wrapper.py");
+            File.WriteAllText(wrapperPath, string.Format(
+@"import sys
+sys.argv = ['extract', r'{0}', r'{1}']
+exec(open(r'{2}', encoding='utf-8').read())
+import os
+os._exit(0)
+",
+                rdcPath, outputJsonPath, scriptPath));
 
-            var fullCommand = pythonExe + " " + args;
+            // qrenderdoc <capture.rdc> --python <script.py>
+            // 캡처 파일을 열면서 Python 스크립트 실행
+            var args = string.Format("\"{0}\" --tempfile --python \"{1}\"", rdcPath, wrapperPath);
+            var fullCommand = qrenderdocPath + " " + args;
             Debug.Log("[UGDB] Running: " + fullCommand);
-            Debug.Log("[UGDB] PYTHONPATH: " + renderDocDir);
 
             try
             {
                 var psi = new ProcessStartInfo
                 {
-                    FileName = pythonExe,
+                    FileName = qrenderdocPath,
                     Arguments = args,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
@@ -290,13 +303,6 @@ namespace UGDB.Core
                     CreateNoWindow = true,
                     WorkingDirectory = Path.GetDirectoryName(scriptPath),
                 };
-
-                // PYTHONPATH에 RenderDoc 디렉토리 추가 (renderdoc.pyd 소재)
-                var existingPythonPath = psi.Environment.ContainsKey("PYTHONPATH")
-                    ? psi.Environment["PYTHONPATH"] : "";
-                psi.Environment["PYTHONPATH"] = string.IsNullOrEmpty(existingPythonPath)
-                    ? renderDocDir
-                    : renderDocDir + ";" + existingPythonPath;
 
                 using (var proc = Process.Start(psi))
                 {
@@ -344,6 +350,15 @@ namespace UGDB.Core
                 Debug.LogError(string.Format(
                     "[UGDB] Python 스크립트 실행 오류: {0}\n실행 명령: {1}", e.Message, fullCommand));
                 return false;
+            }
+            finally
+            {
+                // 래퍼 스크립트 정리
+                if (File.Exists(wrapperPath))
+                {
+                    try { File.Delete(wrapperPath); }
+                    catch (Exception) { /* 무시 */ }
+                }
             }
         }
 
