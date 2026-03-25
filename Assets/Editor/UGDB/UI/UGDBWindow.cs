@@ -189,10 +189,22 @@ namespace UGDB.UI
 
         private void DrawAutoMatchTab()
         {
-            // renderdoccmd 경로 설정
+            // renderdoccmd 경로: 비어 있으면 자동 감지 시도
+            var cmdPath = EditorPrefs.GetString("UGDB_RenderDocCmdPath", "");
+            if (string.IsNullOrEmpty(cmdPath) || !System.IO.File.Exists(cmdPath))
+            {
+                var detected = DetectRenderDocCmdPath();
+                if (!string.IsNullOrEmpty(detected))
+                {
+                    cmdPath = detected;
+                    EditorPrefs.SetString("UGDB_RenderDocCmdPath", detected);
+                    Debug.Log("[UGDB] renderdoccmd 자동 감지: " + detected);
+                }
+            }
+
+            // renderdoccmd 경로 설정 UI
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("renderdoccmd:", GUILayout.Width(90));
-            var cmdPath = EditorPrefs.GetString("UGDB_RenderDocCmdPath", "");
             var newPath = EditorGUILayout.TextField(cmdPath);
             if (newPath != cmdPath)
                 EditorPrefs.SetString("UGDB_RenderDocCmdPath", newPath);
@@ -206,6 +218,17 @@ namespace UGDB.UI
                 }
             }
             EditorGUILayout.EndHorizontal();
+
+            // 경로 유효성 표시
+            var currentPath = EditorPrefs.GetString("UGDB_RenderDocCmdPath", "");
+            if (string.IsNullOrEmpty(currentPath))
+            {
+                EditorGUILayout.HelpBox("renderdoccmd를 찾을 수 없습니다. 경로를 직접 지정하세요.", MessageType.Warning);
+            }
+            else if (!System.IO.File.Exists(currentPath))
+            {
+                EditorGUILayout.HelpBox("지정된 경로에 renderdoccmd가 없습니다: " + currentPath, MessageType.Error);
+            }
 
             EditorGUILayout.Space(4);
 
@@ -428,6 +451,75 @@ namespace UGDB.UI
                 query.shaderName = parseResult.shaderName;
 
             return query;
+        }
+
+        // ── renderdoccmd 자동 감지 ──
+
+        private static string DetectRenderDocCmdPath()
+        {
+            // 1) Program Files 기본 설치 경로
+            string[] programDirs = {
+                System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles),
+                System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFilesX86),
+            };
+
+            foreach (var progDir in programDirs)
+            {
+                if (string.IsNullOrEmpty(progDir)) continue;
+                var rdDir = System.IO.Path.Combine(progDir, "RenderDoc");
+                if (System.IO.Directory.Exists(rdDir))
+                {
+                    var candidate = System.IO.Path.Combine(rdDir, "renderdoccmd.exe");
+                    if (System.IO.File.Exists(candidate))
+                        return candidate;
+                }
+            }
+
+            // 2) PATH 환경변수에서 검색
+            var pathEnv = System.Environment.GetEnvironmentVariable("PATH");
+            if (!string.IsNullOrEmpty(pathEnv))
+            {
+                foreach (var dir in pathEnv.Split(';'))
+                {
+                    if (string.IsNullOrEmpty(dir)) continue;
+                    var candidate = System.IO.Path.Combine(dir.Trim(), "renderdoccmd.exe");
+                    if (System.IO.File.Exists(candidate))
+                        return candidate;
+                }
+            }
+
+            // 3) 레지스트리에서 RenderDoc 설치 경로 검색
+            try
+            {
+                using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
+                    @"SOFTWARE\Classes\RenderDoc.RDCCapture.1\DefaultIcon"))
+                {
+                    if (key != null)
+                    {
+                        var iconPath = key.GetValue("") as string;
+                        if (!string.IsNullOrEmpty(iconPath))
+                        {
+                            // 아이콘 경로에서 디렉토리 추출 (예: "C:\Program Files\RenderDoc\renderdoc.exe,0")
+                            var commaIdx = iconPath.IndexOf(',');
+                            if (commaIdx > 0)
+                                iconPath = iconPath.Substring(0, commaIdx);
+                            var rdDir = System.IO.Path.GetDirectoryName(iconPath);
+                            if (!string.IsNullOrEmpty(rdDir))
+                            {
+                                var candidate = System.IO.Path.Combine(rdDir, "renderdoccmd.exe");
+                                if (System.IO.File.Exists(candidate))
+                                    return candidate;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (System.Exception)
+            {
+                // 레지스트리 접근 실패 시 무시
+            }
+
+            return null;
         }
 
         // ── 세션 관리 (SessionManager 기반) ──
