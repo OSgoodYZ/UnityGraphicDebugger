@@ -273,20 +273,50 @@ namespace UGDB.Core
                 return false;
             }
 
-            // 래퍼 스크립트: 인자 하드코딩 + 완료/에러 시 강제 종료
+            // 래퍼 스크립트: 파일 기반 로깅 + 인자 하드코딩 + 완료/에러 시 강제 종료
             var wrapperPath = Path.Combine(Path.GetDirectoryName(outputJsonPath), "_ugdb_extract_wrapper.py");
+            var logPath = Path.Combine(Path.GetDirectoryName(outputJsonPath), "_ugdb_python.log");
             File.WriteAllText(wrapperPath, string.Format(
 @"import sys, os
+
+LOG = r'{3}'
+def log(msg):
+    with open(LOG, 'a', encoding='utf-8') as f:
+        f.write(msg + '\n')
+
+log('=== UGDB wrapper start ===')
+log('Python: ' + sys.version)
+log('argv will be: extract, {0}, {1}')
+
+# rd 모듈 확인
+try:
+    log('rd module type: ' + str(type(rd)))
+    log('rd available: True')
+except NameError:
+    log('rd available: False (NameError)')
+    try:
+        import renderdoc as rd
+        log('imported renderdoc as rd')
+    except ImportError as ie:
+        log('renderdoc import failed: ' + str(ie))
+
+# 사용 가능한 전역 변수 덤프
+log('globals: ' + str([k for k in dir() if not k.startswith('_')]))
+
 sys.argv = ['extract', r'{0}', r'{1}']
 try:
+    log('executing main script: {2}')
     exec(open(r'{2}', encoding='utf-8').read())
+    log('main script finished OK')
 except Exception as e:
-    sys.stderr.write('UGDB script error: ' + str(e) + '\n')
+    log('SCRIPT ERROR: ' + str(e))
     import traceback
-    traceback.print_exc()
+    log(traceback.format_exc())
+
+log('=== UGDB wrapper end ===')
 os._exit(0)
 ",
-                rdcPath, outputJsonPath, scriptPath));
+                rdcPath, outputJsonPath, scriptPath, logPath));
 
             // .rdc를 넘기지 않음 (파일 락 방지) — 스크립트가 직접 연다
             var args = string.Format("--python \"{0}\"", wrapperPath);
@@ -338,7 +368,18 @@ os._exit(0)
                     if (!string.IsNullOrEmpty(stderr))
                         Debug.LogWarning("[UGDB] Python stderr:\n" + stderr);
 
-                    // JSON 파일 생성 여부로 성공 판단 (exit code는 무시 — os._exit 사용)
+                    // 파일 기반 로그 출력
+                    if (File.Exists(logPath))
+                    {
+                        var pyLog = File.ReadAllText(logPath);
+                        Debug.Log("[UGDB] Python 로그:\n" + pyLog);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("[UGDB] Python 로그 파일이 생성되지 않았습니다. qrenderdoc이 스크립트를 실행하지 않았을 수 있습니다.");
+                    }
+
+                    // JSON 파일 생성 여부로 성공 판단
                     if (File.Exists(outputJsonPath))
                     {
                         Debug.Log("[UGDB] RDC 파싱 완료: " + outputJsonPath);
@@ -361,6 +402,8 @@ os._exit(0)
             finally
             {
                 try { if (File.Exists(wrapperPath)) File.Delete(wrapperPath); }
+                catch (Exception) { }
+                try { if (File.Exists(logPath)) File.Delete(logPath); }
                 catch (Exception) { }
             }
         }
