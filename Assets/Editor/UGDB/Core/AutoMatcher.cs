@@ -263,18 +263,26 @@ namespace UGDB.Core
                 return false;
             }
 
-            // renderdoccmd python <script> <rdc> <output>
-            // renderdoccmd는 인자를 직접 전달하므로 스크립트 경로 뒤에 인자를 나열
-            var args = string.Format("python \"{0}\" \"{1}\" \"{2}\"", scriptPath, rdcPath, outputJsonPath);
+            // 시스템 Python으로 실행 + PYTHONPATH에 RenderDoc 디렉토리 설정
+            var pythonExe = FindPythonExecutable();
+            if (string.IsNullOrEmpty(pythonExe))
+            {
+                Debug.LogError("[UGDB] Python을 찾을 수 없습니다. Python 3.x를 설치하고 PATH에 추가하세요.");
+                return false;
+            }
 
-            var fullCommand = renderDocCmdPath + " " + args;
+            var renderDocDir = Path.GetDirectoryName(renderDocCmdPath);
+            var args = string.Format("\"{0}\" \"{1}\" \"{2}\"", scriptPath, rdcPath, outputJsonPath);
+
+            var fullCommand = pythonExe + " " + args;
             Debug.Log("[UGDB] Running: " + fullCommand);
+            Debug.Log("[UGDB] PYTHONPATH: " + renderDocDir);
 
             try
             {
                 var psi = new ProcessStartInfo
                 {
-                    FileName = renderDocCmdPath,
+                    FileName = pythonExe,
                     Arguments = args,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
@@ -282,6 +290,13 @@ namespace UGDB.Core
                     CreateNoWindow = true,
                     WorkingDirectory = Path.GetDirectoryName(scriptPath),
                 };
+
+                // PYTHONPATH에 RenderDoc 디렉토리 추가 (renderdoc.pyd 소재)
+                var existingPythonPath = psi.Environment.ContainsKey("PYTHONPATH")
+                    ? psi.Environment["PYTHONPATH"] : "";
+                psi.Environment["PYTHONPATH"] = string.IsNullOrEmpty(existingPythonPath)
+                    ? renderDocDir
+                    : renderDocDir + ";" + existingPythonPath;
 
                 using (var proc = Process.Start(psi))
                 {
@@ -330,6 +345,37 @@ namespace UGDB.Core
                     "[UGDB] Python 스크립트 실행 오류: {0}\n실행 명령: {1}", e.Message, fullCommand));
                 return false;
             }
+        }
+
+        /// <summary>
+        /// 시스템에서 Python 실행 파일을 검색한다.
+        /// </summary>
+        private static string FindPythonExecutable()
+        {
+            // 1) EditorPrefs에 사용자 지정 경로
+            var userPython = UnityEditor.EditorPrefs.GetString("UGDB_PythonPath", "");
+            if (!string.IsNullOrEmpty(userPython) && File.Exists(userPython))
+                return userPython;
+
+            // 2) PATH에서 python / python3 검색
+            string[] names = { "python", "python3", "py" };
+            var pathEnv = System.Environment.GetEnvironmentVariable("PATH");
+            if (!string.IsNullOrEmpty(pathEnv))
+            {
+                foreach (var dir in pathEnv.Split(';'))
+                {
+                    if (string.IsNullOrEmpty(dir)) continue;
+                    foreach (var name in names)
+                    {
+                        var candidate = Path.Combine(dir.Trim(), name + ".exe");
+                        if (File.Exists(candidate))
+                            return candidate;
+                    }
+                }
+            }
+
+            // 3) 폴백: "python"을 그대로 반환 (PATH에 있으면 동작)
+            return "python";
         }
 
         /// <summary>

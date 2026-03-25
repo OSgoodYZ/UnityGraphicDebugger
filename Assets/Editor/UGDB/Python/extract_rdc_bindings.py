@@ -40,6 +40,19 @@ import sys
 import json
 import os
 
+# renderdoc 모듈 임포트: 시스템 Python에서 실행 시 명시적 import 필요
+# RenderDoc 내장 Python에서는 rd가 이미 전역에 존재함
+try:
+    rd  # noqa: F821 — RenderDoc 내장 환경에서 이미 사용 가능한지 확인
+except NameError:
+    try:
+        import renderdoc as rd
+    except ImportError:
+        print("Error: renderdoc 모듈을 찾을 수 없습니다.", file=sys.stderr)
+        print("PYTHONPATH에 RenderDoc 설치 디렉토리를 추가하세요.", file=sys.stderr)
+        print("예: set PYTHONPATH=C:\\Program Files\\RenderDoc", file=sys.stderr)
+        sys.exit(1)
+
 
 def is_draw_action(action):
     """드로우콜인지 판별한다 (DrawIndexed, Draw, Dispatch 등)."""
