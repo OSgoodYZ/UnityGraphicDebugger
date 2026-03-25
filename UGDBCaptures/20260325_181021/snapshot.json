@@ -1,0 +1,3160 @@
+{
+    "timestamp": "2026-03-25 18:10:21",
+    "unityVersion": "6000.0.64f1",
+    "graphicsAPI": "Direct3D11",
+    "screenWidth": 1087,
+    "screenHeight": 751,
+    "loadedScenes": [
+        "SampleScene"
+    ],
+    "cameras": [
+        {
+            "name": "Main Camera",
+            "hierarchyPath": "/Main Camera",
+            "depth": -1,
+            "fieldOfView": 60.0,
+            "nearClip": 0.30000001192092898,
+            "farClip": 1000.0,
+            "clearFlags": "Skybox",
+            "cullingMask": -1
+        }
+    ],
+    "renderers": [
+        {
+            "gameObjectName": "Capsule",
+            "hierarchyPath": "/Capsule",
+            "sceneName": "SampleScene",
+            "mesh": {
+                "name": "Capsule",
+                "vertexCount": 550,
+                "indexCount": 2496,
+                "subMeshCount": 1
+            },
+            "visibleFromCameras": [
+                "Main Camera"
+            ],
+            "lightmapIndex": -1,
+            "lightProbeUsage": "BlendProbes",
+            "reflectionProbeUsage": "BlendProbes",
+            "materials": [
+                {
+                    "name": "Default-Material",
+                    "instanceId": 640,
+                    "isInstance": false,
+                    "renderQueue": 2000,
+                    "shaderName": "Standard",
+                    "activeKeywords": [
+                        "_EMISSION"
+                    ],
+                    "variantKey": "Standard|_EMISSION",
+                    "textures": [
+                        {
+                            "propertyName": "_MainTex",
+                            "nameID": 7,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_MetallicGlossMap",
+                            "nameID": 396,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_BumpMap",
+                            "nameID": 262,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_ParallaxMap",
+                            "nameID": 407,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_OcclusionMap",
+                            "nameID": 412,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_EmissionMap",
+                            "nameID": 416,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DetailMask",
+                            "nameID": 420,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DetailAlbedoMap",
+                            "nameID": 424,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DetailNormalMap",
+                            "nameID": 265,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        }
+                    ],
+                    "scalars": [
+                        {
+                            "propertyName": "_Color",
+                            "nameID": 177,
+                            "type": 2,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Cutoff",
+                            "nameID": 225,
+                            "type": 1,
+                            "floatValue": 0.5,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Glossiness",
+                            "nameID": 392,
+                            "type": 1,
+                            "floatValue": 0.5,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_GlossMapScale",
+                            "nameID": 393,
+                            "type": 1,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_SmoothnessTextureChannel",
+                            "nameID": 394,
+                            "type": 0,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Metallic",
+                            "nameID": 395,
+                            "type": 1,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_SpecularHighlights",
+                            "nameID": 400,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_GlossyReflections",
+                            "nameID": 401,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_BumpScale",
+                            "nameID": 402,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Parallax",
+                            "nameID": 406,
+                            "type": 1,
+                            "floatValue": 0.019999999552965165,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_OcclusionStrength",
+                            "nameID": 411,
+                            "type": 1,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_EmissionColor",
+                            "nameID": 69,
+                            "type": 2,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.9999999403953552
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DetailNormalMapScale",
+                            "nameID": 428,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_UVSec",
+                            "nameID": 432,
+                            "type": 0,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Mode",
+                            "nameID": 433,
+                            "type": 0,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_SrcBlend",
+                            "nameID": 58,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DstBlend",
+                            "nameID": 59,
+                            "type": 0,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_ZWrite",
+                            "nameID": 391,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        }
+                    ],
+                    "propertyBlockOverrides": [],
+                    "propertyBlockTextures": []
+                }
+            ]
+        },
+        {
+            "gameObjectName": "Sphere",
+            "hierarchyPath": "/Sphere",
+            "sceneName": "SampleScene",
+            "mesh": {
+                "name": "Sphere",
+                "vertexCount": 515,
+                "indexCount": 2304,
+                "subMeshCount": 1
+            },
+            "visibleFromCameras": [
+                "Main Camera"
+            ],
+            "lightmapIndex": -1,
+            "lightProbeUsage": "BlendProbes",
+            "reflectionProbeUsage": "BlendProbes",
+            "materials": [
+                {
+                    "name": "Default-Material",
+                    "instanceId": 640,
+                    "isInstance": false,
+                    "renderQueue": 2000,
+                    "shaderName": "Standard",
+                    "activeKeywords": [
+                        "_EMISSION"
+                    ],
+                    "variantKey": "Standard|_EMISSION",
+                    "textures": [
+                        {
+                            "propertyName": "_MainTex",
+                            "nameID": 7,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_MetallicGlossMap",
+                            "nameID": 396,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_BumpMap",
+                            "nameID": 262,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_ParallaxMap",
+                            "nameID": 407,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_OcclusionMap",
+                            "nameID": 412,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_EmissionMap",
+                            "nameID": 416,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DetailMask",
+                            "nameID": 420,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DetailAlbedoMap",
+                            "nameID": 424,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DetailNormalMap",
+                            "nameID": 265,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        }
+                    ],
+                    "scalars": [
+                        {
+                            "propertyName": "_Color",
+                            "nameID": 177,
+                            "type": 2,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Cutoff",
+                            "nameID": 225,
+                            "type": 1,
+                            "floatValue": 0.5,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Glossiness",
+                            "nameID": 392,
+                            "type": 1,
+                            "floatValue": 0.5,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_GlossMapScale",
+                            "nameID": 393,
+                            "type": 1,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_SmoothnessTextureChannel",
+                            "nameID": 394,
+                            "type": 0,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Metallic",
+                            "nameID": 395,
+                            "type": 1,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_SpecularHighlights",
+                            "nameID": 400,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_GlossyReflections",
+                            "nameID": 401,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_BumpScale",
+                            "nameID": 402,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Parallax",
+                            "nameID": 406,
+                            "type": 1,
+                            "floatValue": 0.019999999552965165,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_OcclusionStrength",
+                            "nameID": 411,
+                            "type": 1,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_EmissionColor",
+                            "nameID": 69,
+                            "type": 2,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.9999999403953552
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DetailNormalMapScale",
+                            "nameID": 428,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_UVSec",
+                            "nameID": 432,
+                            "type": 0,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Mode",
+                            "nameID": 433,
+                            "type": 0,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_SrcBlend",
+                            "nameID": 58,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DstBlend",
+                            "nameID": 59,
+                            "type": 0,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_ZWrite",
+                            "nameID": 391,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        }
+                    ],
+                    "propertyBlockOverrides": [],
+                    "propertyBlockTextures": []
+                }
+            ]
+        },
+        {
+            "gameObjectName": "Quad",
+            "hierarchyPath": "/Quad",
+            "sceneName": "SampleScene",
+            "mesh": {
+                "name": "Quad",
+                "vertexCount": 4,
+                "indexCount": 6,
+                "subMeshCount": 1
+            },
+            "visibleFromCameras": [
+                "Main Camera"
+            ],
+            "lightmapIndex": -1,
+            "lightProbeUsage": "BlendProbes",
+            "reflectionProbeUsage": "BlendProbes",
+            "materials": [
+                {
+                    "name": "Default-Material",
+                    "instanceId": 640,
+                    "isInstance": false,
+                    "renderQueue": 2000,
+                    "shaderName": "Standard",
+                    "activeKeywords": [
+                        "_EMISSION"
+                    ],
+                    "variantKey": "Standard|_EMISSION",
+                    "textures": [
+                        {
+                            "propertyName": "_MainTex",
+                            "nameID": 7,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_MetallicGlossMap",
+                            "nameID": 396,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_BumpMap",
+                            "nameID": 262,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_ParallaxMap",
+                            "nameID": 407,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_OcclusionMap",
+                            "nameID": 412,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_EmissionMap",
+                            "nameID": 416,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DetailMask",
+                            "nameID": 420,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DetailAlbedoMap",
+                            "nameID": 424,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DetailNormalMap",
+                            "nameID": 265,
+                            "assetPath": "",
+                            "signature": {
+                                "width": 0,
+                                "height": 0,
+                                "format": "",
+                                "mipCount": 0
+                            },
+                            "filterMode": "",
+                            "wrapMode": "",
+                            "memorySizeBytes": 0,
+                            "textureType": "None",
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        }
+                    ],
+                    "scalars": [
+                        {
+                            "propertyName": "_Color",
+                            "nameID": 177,
+                            "type": 2,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Cutoff",
+                            "nameID": 225,
+                            "type": 1,
+                            "floatValue": 0.5,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Glossiness",
+                            "nameID": 392,
+                            "type": 1,
+                            "floatValue": 0.5,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_GlossMapScale",
+                            "nameID": 393,
+                            "type": 1,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_SmoothnessTextureChannel",
+                            "nameID": 394,
+                            "type": 0,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Metallic",
+                            "nameID": 395,
+                            "type": 1,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_SpecularHighlights",
+                            "nameID": 400,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_GlossyReflections",
+                            "nameID": 401,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_BumpScale",
+                            "nameID": 402,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Parallax",
+                            "nameID": 406,
+                            "type": 1,
+                            "floatValue": 0.019999999552965165,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_OcclusionStrength",
+                            "nameID": 411,
+                            "type": 1,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_EmissionColor",
+                            "nameID": 69,
+                            "type": 2,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.9999999403953552
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DetailNormalMapScale",
+                            "nameID": 428,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_UVSec",
+                            "nameID": 432,
+                            "type": 0,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_Mode",
+                            "nameID": 433,
+                            "type": 0,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_SrcBlend",
+                            "nameID": 58,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_DstBlend",
+                            "nameID": 59,
+                            "type": 0,
+                            "floatValue": 0.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        },
+                        {
+                            "propertyName": "_ZWrite",
+                            "nameID": 391,
+                            "type": 0,
+                            "floatValue": 1.0,
+                            "colorValue": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "vectorValue": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            "intValue": 0,
+                            "textureOffset": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "textureScale": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "isTextureST": false,
+                            "materialName": "Default-Material",
+                            "materialInstanceId": 640
+                        }
+                    ],
+                    "propertyBlockOverrides": [],
+                    "propertyBlockTextures": []
+                }
+            ]
+        }
+    ],
+    "lights": [
+        {
+            "name": "Directional Light",
+            "hierarchyPath": "/Directional Light",
+            "type": "Directional",
+            "color": {
+                "r": 1.0,
+                "g": 0.95686274766922,
+                "b": 0.8392156958580017,
+                "a": 1.0
+            },
+            "intensity": 1.0,
+            "range": 10.0,
+            "shadowsEnabled": true,
+            "shadowType": "Soft",
+            "shadowmapResolution": 2048,
+            "cookieTexturePath": ""
+        }
+    ],
+    "globalState": {
+        "globalTextures": [
+            {
+                "propertyName": "_CameraDepthTexture",
+                "nameID": 27,
+                "signature": {
+                    "width": 1087,
+                    "height": 751,
+                    "format": "Depth",
+                    "mipCount": 1
+                },
+                "textureType": "RenderTexture"
+            },
+            {
+                "propertyName": "_ShadowMapTexture",
+                "nameID": 17,
+                "signature": {
+                    "width": 4096,
+                    "height": 4096,
+                    "format": "Shadowmap",
+                    "mipCount": 1
+                },
+                "textureType": "RenderTexture"
+            }
+        ],
+        "activeRenderTextures": [
+            {
+                "width": 1,
+                "height": 1,
+                "format": "ARGB32",
+                "mipCount": 1
+            }
+        ],
+        "lightmapTextures": [],
+        "ambientMode": "Skybox",
+        "ambientLight": {
+            "r": 0.21199999749660493,
+            "g": 0.22699999809265138,
+            "b": 0.2590000033378601,
+            "a": 1.0
+        },
+        "fogMode": "ExponentialSquared",
+        "fogColor": {
+            "r": 0.5,
+            "g": 0.5,
+            "b": 0.5,
+            "a": 1.0
+        },
+        "fogDensity": 0.009999999776482582,
+        "qualityLevel": "Ultra",
+        "shadowResolution": 2,
+        "shadowQuality": "All"
+    },
+    "statistics": {
+        "totalRenderers": 3,
+        "totalMaterials": 1,
+        "totalShaders": 1,
+        "totalTextures": 0,
+        "totalVariants": 1,
+        "totalTextureMemoryBytes": 0
+    },
+    "shaders": [
+        {
+            "name": "Standard",
+            "assetPath": "Resources/unity_builtin_extra",
+            "passCount": 5,
+            "keywords": [],
+            "properties": [
+                {
+                    "index": 0,
+                    "name": "_Color",
+                    "nameID": 177,
+                    "type": "Color",
+                    "attributes": []
+                },
+                {
+                    "index": 1,
+                    "name": "_MainTex",
+                    "nameID": 7,
+                    "type": "Texture",
+                    "attributes": []
+                },
+                {
+                    "index": 2,
+                    "name": "_Cutoff",
+                    "nameID": 225,
+                    "type": "Range",
+                    "attributes": []
+                },
+                {
+                    "index": 3,
+                    "name": "_Glossiness",
+                    "nameID": 392,
+                    "type": "Range",
+                    "attributes": []
+                },
+                {
+                    "index": 4,
+                    "name": "_GlossMapScale",
+                    "nameID": 393,
+                    "type": "Range",
+                    "attributes": []
+                },
+                {
+                    "index": 5,
+                    "name": "_SmoothnessTextureChannel",
+                    "nameID": 394,
+                    "type": "Float",
+                    "attributes": [
+                        "Enum(Metallic Alpha,0,Albedo Alpha,1)"
+                    ]
+                },
+                {
+                    "index": 6,
+                    "name": "_Metallic",
+                    "nameID": 395,
+                    "type": "Range",
+                    "attributes": []
+                },
+                {
+                    "index": 7,
+                    "name": "_MetallicGlossMap",
+                    "nameID": 396,
+                    "type": "Texture",
+                    "attributes": []
+                },
+                {
+                    "index": 8,
+                    "name": "_SpecularHighlights",
+                    "nameID": 400,
+                    "type": "Float",
+                    "attributes": [
+                        "ToggleOff"
+                    ]
+                },
+                {
+                    "index": 9,
+                    "name": "_GlossyReflections",
+                    "nameID": 401,
+                    "type": "Float",
+                    "attributes": [
+                        "ToggleOff"
+                    ]
+                },
+                {
+                    "index": 10,
+                    "name": "_BumpScale",
+                    "nameID": 402,
+                    "type": "Float",
+                    "attributes": []
+                },
+                {
+                    "index": 11,
+                    "name": "_BumpMap",
+                    "nameID": 262,
+                    "type": "Texture",
+                    "attributes": []
+                },
+                {
+                    "index": 12,
+                    "name": "_Parallax",
+                    "nameID": 406,
+                    "type": "Range",
+                    "attributes": []
+                },
+                {
+                    "index": 13,
+                    "name": "_ParallaxMap",
+                    "nameID": 407,
+                    "type": "Texture",
+                    "attributes": []
+                },
+                {
+                    "index": 14,
+                    "name": "_OcclusionStrength",
+                    "nameID": 411,
+                    "type": "Range",
+                    "attributes": []
+                },
+                {
+                    "index": 15,
+                    "name": "_OcclusionMap",
+                    "nameID": 412,
+                    "type": "Texture",
+                    "attributes": []
+                },
+                {
+                    "index": 16,
+                    "name": "_EmissionColor",
+                    "nameID": 69,
+                    "type": "Color",
+                    "attributes": []
+                },
+                {
+                    "index": 17,
+                    "name": "_EmissionMap",
+                    "nameID": 416,
+                    "type": "Texture",
+                    "attributes": []
+                },
+                {
+                    "index": 18,
+                    "name": "_DetailMask",
+                    "nameID": 420,
+                    "type": "Texture",
+                    "attributes": []
+                },
+                {
+                    "index": 19,
+                    "name": "_DetailAlbedoMap",
+                    "nameID": 424,
+                    "type": "Texture",
+                    "attributes": []
+                },
+                {
+                    "index": 20,
+                    "name": "_DetailNormalMapScale",
+                    "nameID": 428,
+                    "type": "Float",
+                    "attributes": []
+                },
+                {
+                    "index": 21,
+                    "name": "_DetailNormalMap",
+                    "nameID": 265,
+                    "type": "Texture",
+                    "attributes": []
+                },
+                {
+                    "index": 22,
+                    "name": "_UVSec",
+                    "nameID": 432,
+                    "type": "Float",
+                    "attributes": [
+                        "Enum(UV0,0,UV1,1)"
+                    ]
+                },
+                {
+                    "index": 23,
+                    "name": "_Mode",
+                    "nameID": 433,
+                    "type": "Float",
+                    "attributes": []
+                },
+                {
+                    "index": 24,
+                    "name": "_SrcBlend",
+                    "nameID": 58,
+                    "type": "Float",
+                    "attributes": []
+                },
+                {
+                    "index": 25,
+                    "name": "_DstBlend",
+                    "nameID": 59,
+                    "type": "Float",
+                    "attributes": []
+                },
+                {
+                    "index": 26,
+                    "name": "_ZWrite",
+                    "nameID": 391,
+                    "type": "Float",
+                    "attributes": []
+                }
+            ],
+            "variantKeys": [
+                "Standard|_EMISSION"
+            ],
+            "materialInstanceIds": [
+                640
+            ]
+        }
+    ],
+    "variants": [
+        {
+            "shaderName": "Standard",
+            "activeKeywords": [
+                "_EMISSION"
+            ],
+            "variantKey": "Standard|_EMISSION",
+            "materialInstanceIds": [
+                640
+            ],
+            "textureSlotPattern": [
+                {
+                    "slotIndex": 0,
+                    "propertyName": "_MainTex",
+                    "isRealTexture": false,
+                    "signature": {
+                        "width": 0,
+                        "height": 0,
+                        "format": "",
+                        "mipCount": 0
+                    }
+                },
+                {
+                    "slotIndex": 1,
+                    "propertyName": "_MetallicGlossMap",
+                    "isRealTexture": false,
+                    "signature": {
+                        "width": 0,
+                        "height": 0,
+                        "format": "",
+                        "mipCount": 0
+                    }
+                },
+                {
+                    "slotIndex": 2,
+                    "propertyName": "_BumpMap",
+                    "isRealTexture": false,
+                    "signature": {
+                        "width": 0,
+                        "height": 0,
+                        "format": "",
+                        "mipCount": 0
+                    }
+                },
+                {
+                    "slotIndex": 3,
+                    "propertyName": "_ParallaxMap",
+                    "isRealTexture": false,
+                    "signature": {
+                        "width": 0,
+                        "height": 0,
+                        "format": "",
+                        "mipCount": 0
+                    }
+                },
+                {
+                    "slotIndex": 4,
+                    "propertyName": "_OcclusionMap",
+                    "isRealTexture": false,
+                    "signature": {
+                        "width": 0,
+                        "height": 0,
+                        "format": "",
+                        "mipCount": 0
+                    }
+                },
+                {
+                    "slotIndex": 5,
+                    "propertyName": "_EmissionMap",
+                    "isRealTexture": false,
+                    "signature": {
+                        "width": 0,
+                        "height": 0,
+                        "format": "",
+                        "mipCount": 0
+                    }
+                },
+                {
+                    "slotIndex": 6,
+                    "propertyName": "_DetailMask",
+                    "isRealTexture": false,
+                    "signature": {
+                        "width": 0,
+                        "height": 0,
+                        "format": "",
+                        "mipCount": 0
+                    }
+                },
+                {
+                    "slotIndex": 7,
+                    "propertyName": "_DetailAlbedoMap",
+                    "isRealTexture": false,
+                    "signature": {
+                        "width": 0,
+                        "height": 0,
+                        "format": "",
+                        "mipCount": 0
+                    }
+                },
+                {
+                    "slotIndex": 8,
+                    "propertyName": "_DetailNormalMap",
+                    "isRealTexture": false,
+                    "signature": {
+                        "width": 0,
+                        "height": 0,
+                        "format": "",
+                        "mipCount": 0
+                    }
+                }
+            ],
+            "scalarPattern": [
+                {
+                    "propertyName": "_Color",
+                    "nameID": 177,
+                    "type": 2,
+                    "floatValue": 0.0,
+                    "colorValue": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_Cutoff",
+                    "nameID": 225,
+                    "type": 1,
+                    "floatValue": 0.5,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_Glossiness",
+                    "nameID": 392,
+                    "type": 1,
+                    "floatValue": 0.5,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_GlossMapScale",
+                    "nameID": 393,
+                    "type": 1,
+                    "floatValue": 1.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_SmoothnessTextureChannel",
+                    "nameID": 394,
+                    "type": 0,
+                    "floatValue": 0.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_Metallic",
+                    "nameID": 395,
+                    "type": 1,
+                    "floatValue": 0.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_SpecularHighlights",
+                    "nameID": 400,
+                    "type": 0,
+                    "floatValue": 1.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_GlossyReflections",
+                    "nameID": 401,
+                    "type": 0,
+                    "floatValue": 1.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_BumpScale",
+                    "nameID": 402,
+                    "type": 0,
+                    "floatValue": 1.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_Parallax",
+                    "nameID": 406,
+                    "type": 1,
+                    "floatValue": 0.019999999552965165,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_OcclusionStrength",
+                    "nameID": 411,
+                    "type": 1,
+                    "floatValue": 1.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_EmissionColor",
+                    "nameID": 69,
+                    "type": 2,
+                    "floatValue": 0.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.9999999403953552
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_DetailNormalMapScale",
+                    "nameID": 428,
+                    "type": 0,
+                    "floatValue": 1.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_UVSec",
+                    "nameID": 432,
+                    "type": 0,
+                    "floatValue": 0.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_Mode",
+                    "nameID": 433,
+                    "type": 0,
+                    "floatValue": 0.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_SrcBlend",
+                    "nameID": 58,
+                    "type": 0,
+                    "floatValue": 1.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_DstBlend",
+                    "nameID": 59,
+                    "type": 0,
+                    "floatValue": 0.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                },
+                {
+                    "propertyName": "_ZWrite",
+                    "nameID": 391,
+                    "type": 0,
+                    "floatValue": 1.0,
+                    "colorValue": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "vectorValue": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 0.0
+                    },
+                    "intValue": 0,
+                    "textureOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "textureScale": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "isTextureST": false,
+                    "materialName": "Default-Material",
+                    "materialInstanceId": 640
+                }
+            ],
+            "slotPatternKey": "dummy|dummy|dummy|dummy|dummy|dummy|dummy|dummy|dummy"
+        }
+    ]
+}

@@ -330,30 +330,15 @@ os._exit(0)
                     FileName = qrenderdocPath,
                     Arguments = args,
                     UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
+                    RedirectStandardOutput = false,
+                    RedirectStandardError = false,
                     CreateNoWindow = false,
                     WorkingDirectory = Path.GetDirectoryName(scriptPath),
                 };
 
                 using (var proc = Process.Start(psi))
                 {
-                    // stdout/stderr 모두 비동기 읽기 (GUI 프로세스 데드락 방지)
-                    string stdout = "";
-                    string stderr = "";
-                    proc.OutputDataReceived += (sender, e) =>
-                    {
-                        if (!string.IsNullOrEmpty(e.Data))
-                            stdout += e.Data + "\n";
-                    };
-                    proc.ErrorDataReceived += (sender, e) =>
-                    {
-                        if (!string.IsNullOrEmpty(e.Data))
-                            stderr += e.Data + "\n";
-                    };
-                    proc.BeginOutputReadLine();
-                    proc.BeginErrorReadLine();
-
+                    // GUI 프로세스: 파이프 리다이렉트 없이 파일 기반 통신만 사용
                     // os._exit(0)으로 빠르게 종료됨. 60초 타임아웃은 안전장치.
                     bool exited = proc.WaitForExit(60000);
 
@@ -362,11 +347,6 @@ os._exit(0)
                         Debug.LogWarning("[UGDB] qrenderdoc 타임아웃 — 프로세스를 강제 종료합니다.");
                         try { proc.Kill(); } catch (Exception) { }
                     }
-
-                    if (!string.IsNullOrEmpty(stdout))
-                        Debug.Log("[UGDB] Python stdout:\n" + stdout);
-                    if (!string.IsNullOrEmpty(stderr))
-                        Debug.LogWarning("[UGDB] Python stderr:\n" + stderr);
 
                     // 파일 기반 로그 출력
                     if (File.Exists(logPath))
@@ -386,10 +366,15 @@ os._exit(0)
                         return true;
                     }
 
+                    // 로그 파일에서 에러 원인 확인
+                    string pyLogContent = "";
+                    if (File.Exists(logPath))
+                        pyLogContent = File.ReadAllText(logPath);
+
                     Debug.LogError(string.Format(
                         "[UGDB] Auto-Match 실패: 출력 JSON이 생성되지 않았습니다.\n" +
-                        "실행 명령: {0}\nstderr: {1}",
-                        fullCommand, stderr));
+                        "실행 명령: {0}\nPython 로그:\n{1}",
+                        fullCommand, pyLogContent));
                     return false;
                 }
             }
