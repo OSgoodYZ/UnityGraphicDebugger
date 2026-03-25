@@ -263,7 +263,7 @@ namespace UGDB.Core
                 return false;
             }
 
-            // qrenderdoc --python 방식으로 실행 (RenderDoc 내장 Python + pyrenderdoc 사용)
+            // qrenderdoc --python 방식: RenderDoc 내장 Python에서 pyrenderdoc 사용
             var renderDocDir = Path.GetDirectoryName(renderDocCmdPath);
             var qrenderdocPath = Path.Combine(renderDocDir, "qrenderdoc.exe");
 
@@ -273,21 +273,23 @@ namespace UGDB.Core
                 return false;
             }
 
-            // 래퍼 스크립트 생성: qrenderdoc --python은 인자 전달이 안 되므로
-            // .rdc 경로와 출력 경로를 하드코딩한 임시 스크립트를 생성
+            // 래퍼 스크립트: 인자 하드코딩 + 완료/에러 시 강제 종료
             var wrapperPath = Path.Combine(Path.GetDirectoryName(outputJsonPath), "_ugdb_extract_wrapper.py");
             File.WriteAllText(wrapperPath, string.Format(
-@"import sys
+@"import sys, os
 sys.argv = ['extract', r'{0}', r'{1}']
-exec(open(r'{2}', encoding='utf-8').read())
-import os
+try:
+    exec(open(r'{2}', encoding='utf-8').read())
+except Exception as e:
+    sys.stderr.write('UGDB script error: ' + str(e) + '\n')
+    import traceback
+    traceback.print_exc()
 os._exit(0)
 ",
                 rdcPath, outputJsonPath, scriptPath));
 
-            // qrenderdoc <capture.rdc> --python <script.py>
-            // 캡처 파일을 열면서 Python 스크립트 실행
-            var args = string.Format("\"{0}\" --tempfile --python \"{1}\"", rdcPath, wrapperPath);
+            // .rdc를 넘기지 않음 (파일 락 방지) — 스크립트가 직접 연다
+            var args = string.Format("--python \"{0}\"", wrapperPath);
             var fullCommand = qrenderdocPath + " " + args;
             Debug.Log("[UGDB] Running: " + fullCommand);
 
@@ -300,65 +302,66 @@ os._exit(0)
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                    CreateNoWindow = true,
+                    CreateNoWindow = false,
                     WorkingDirectory = Path.GetDirectoryName(scriptPath),
                 };
 
                 using (var proc = Process.Start(psi))
                 {
-                    // 데드락 방지: stderr를 비동기로 읽기
+                    // stdout/stderr 모두 비동기 읽기 (GUI 프로세스 데드락 방지)
+                    string stdout = "";
                     string stderr = "";
+                    proc.OutputDataReceived += (sender, e) =>
+                    {
+                        if (!string.IsNullOrEmpty(e.Data))
+                            stdout += e.Data + "\n";
+                    };
                     proc.ErrorDataReceived += (sender, e) =>
                     {
                         if (!string.IsNullOrEmpty(e.Data))
                             stderr += e.Data + "\n";
                     };
+                    proc.BeginOutputReadLine();
                     proc.BeginErrorReadLine();
 
-                    var stdout = proc.StandardOutput.ReadToEnd();
-                    proc.WaitForExit(120000); // 2분 타임아웃
+                    // os._exit(0)으로 빠르게 종료됨. 60초 타임아웃은 안전장치.
+                    bool exited = proc.WaitForExit(60000);
+
+                    if (!exited)
+                    {
+                        Debug.LogWarning("[UGDB] qrenderdoc 타임아웃 — 프로세스를 강제 종료합니다.");
+                        try { proc.Kill(); } catch (Exception) { }
+                    }
 
                     if (!string.IsNullOrEmpty(stdout))
                         Debug.Log("[UGDB] Python stdout:\n" + stdout);
-
                     if (!string.IsNullOrEmpty(stderr))
                         Debug.LogWarning("[UGDB] Python stderr:\n" + stderr);
 
-                    if (proc.ExitCode != 0)
+                    // JSON 파일 생성 여부로 성공 판단 (exit code는 무시 — os._exit 사용)
+                    if (File.Exists(outputJsonPath))
                     {
-                        Debug.LogError(string.Format(
-                            "[UGDB] Python 스크립트 실패 (exit code: {0})\n" +
-                            "실행 명령: {1}\n" +
-                            "stderr: {2}\n\n" +
-                            "터미널에서 직접 실행하여 확인해보세요:\n{1}",
-                            proc.ExitCode, fullCommand, stderr));
-                        return false;
+                        Debug.Log("[UGDB] RDC 파싱 완료: " + outputJsonPath);
+                        return true;
                     }
-                }
 
-                if (!File.Exists(outputJsonPath))
-                {
-                    Debug.LogError("[UGDB] 출력 JSON 파일이 생성되지 않았습니다: " + outputJsonPath);
+                    Debug.LogError(string.Format(
+                        "[UGDB] Auto-Match 실패: 출력 JSON이 생성되지 않았습니다.\n" +
+                        "실행 명령: {0}\nstderr: {1}",
+                        fullCommand, stderr));
                     return false;
                 }
-
-                Debug.Log("[UGDB] RDC 파싱 완료: " + outputJsonPath);
-                return true;
             }
             catch (Exception e)
             {
                 Debug.LogError(string.Format(
-                    "[UGDB] Python 스크립트 실행 오류: {0}\n실행 명령: {1}", e.Message, fullCommand));
+                    "[UGDB] qrenderdoc 실행 오류: {0}\n실행 명령: {1}", e.Message, fullCommand));
                 return false;
             }
             finally
             {
-                // 래퍼 스크립트 정리
-                if (File.Exists(wrapperPath))
-                {
-                    try { File.Delete(wrapperPath); }
-                    catch (Exception) { /* 무시 */ }
-                }
+                try { if (File.Exists(wrapperPath)) File.Delete(wrapperPath); }
+                catch (Exception) { }
             }
         }
 
